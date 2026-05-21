@@ -1,0 +1,33 @@
+WITH session_base AS (
+  SELECT
+    CONCAT((SELECT value.int_value FROM UNNEST(event_params) WHERE key = 'ga_session_id'), user_pseudo_id) AS unique_session_id,
+    -- Grab the landing page title specifically where entrances = 1
+    MAX(CASE WHEN (SELECT value.int_value FROM UNNEST(event_params) WHERE key = 'entrances') = 1 
+             THEN (SELECT value.string_value FROM UNNEST(event_params) WHERE key = 'page_title') 
+        END) AS landing_page_title,
+    -- Scan the entire session and grab the source/medium from whichever event has it populated
+    MAX(LOWER(collected_traffic_source.manual_source)) AS source,
+    MAX(LOWER(collected_traffic_source.manual_medium)) AS medium
+  FROM `enter.tablename_123456.events_intraday_2026*`
+  GROUP BY unique_session_id
+),
+
+session_conversions AS (
+  SELECT
+    CONCAT((SELECT value.int_value FROM UNNEST(event_params) WHERE key = 'ga_session_id'), user_pseudo_id) AS unique_session_id,
+    COUNT(CASE WHEN event_name = 'purchase' THEN 1 END) AS session_purchases,
+    SUM(CASE WHEN event_name = 'purchase' THEN COALESCE(event_value_in_usd, 0) END) AS session_revenue
+  FROM `enter.tablename_123456.events_intraday_2026*`
+  GROUP BY unique_session_id
+)
+
+SELECT
+  sb.unique_session_id,
+  sb.landing_page_title,
+  -- Fallback to 'direct' if GA4 didn't pass a manual source (standard GA4 behavior)
+  COALESCE(sb.source, 'direct') AS source,
+  COALESCE(sb.medium, 'none') AS medium,
+  COALESCE(sc.session_purchases, 0) AS purchases,
+  COALESCE(sc.session_revenue, 0) AS revenue
+FROM session_base sb
+LEFT JOIN session_conversions sc ON sb.unique_session_id = sc.unique_session_id;
