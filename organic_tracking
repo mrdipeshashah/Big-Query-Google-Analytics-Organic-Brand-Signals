@@ -1,38 +1,85 @@
-with attribution as (
-  select
-      (select value.int_value from unnest(event_params) where key='ga_session_id') as session,
-      concat((select value.int_value from unnest(event_params) where key='ga_session_id'),user_pseudo_id) as session_id,
-      timestamp_micros(event_timestamp) as timestamp,
-      (select value.string_value from unnest(event_params) where key = 'page_location') AS page_location,
-      (select value.string_value from unnest(event_params) where key = 'page_title') AS page_title,
-      user_pseudo_id as user_id,
-      lower(collected_traffic_source.manual_source) as source,
-      lower(collected_traffic_source.manual_medium) as medium,
-  from `enter.tablename_123456.events_*`
-  where event_name='session_start'
+WITH session_base AS (
+  SELECT
+    PARSE_DATE('%Y%m%d', event_date) AS date,
+    user_pseudo_id AS user_id,
+    -- Unique session key combination
+    CONCAT((SELECT value.int_value FROM UNNEST(event_params) WHERE key = 'ga_session_id'), user_pseudo_id) AS unique_session_id,
+    -- Isolate the true Landing Page Title
+    MAX(CASE WHEN (SELECT value.int_value FROM UNNEST(event_params) WHERE key = 'entrances') = 1 
+             THEN (SELECT value.string_value FROM UNNEST(event_params) WHERE key = 'page_title') 
+        END) AS landing_page_title,
+    -- Pull the populated traffic source across the entire session
+    MAX(LOWER(collected_traffic_source.manual_source)) AS source,
+    MAX(LOWER(collected_traffic_source.manual_medium)) AS medium
+  FROM `enter.tablename_123456.events_*`
+  -- Manage your date range shard costs here
+  WHERE _TABLE_SUFFIX BETWEEN '20250101' AND '20261231'
+  GROUP BY date, user_id, unique_session_id
+),
+
+session_conversions AS (
+  SELECT
+    CONCAT((SELECT value.int_value FROM UNNEST(event_params) WHERE key = 'ga_session_id'), user_pseudo_id) AS unique_session_id,
+    COUNT(CASE WHEN event_name = 'purchase' THEN 1 END) AS session_purchases,
+    SUM(CASE WHEN event_name = 'purchase' THEN COALESCE(event_value_in_usd, 0) END) AS session_revenue
+  FROM `enter.tablename_123456.events_*`
+  WHERE _TABLE_SUFFIX BETWEEN '20250101' AND '20261231'
+  GROUP BY unique_session_id
 )
 
-select
-    -- timestamp,
-    date(timestamp) as date,
-    -- time(timestamp) as time,
-    -- format_timestamp('%H:%M:%S',timestamp) as time,
-    -- extract(hour from timestamp) as event_hour,
-    count(distinct session) as unique_session_count,
-    count(distinct user_id) as unique_user_count,
-    count(case when page_title='Enter Homepage Page_Title' then session end) as home_page_count,
-    count(case when page_title='Enter Homepage Page_Title' and source in ('google','bing') and medium like 'organic%' then session end) as home_page_organic_session_count,
+SELECT
+  sb.date,
+  
+  -- 1. MACRO TOTALS (For calculating percentages later)
+  COUNT(DISTINCT sb.unique_session_id) AS total_site_sessions,
+  SUM(COALESCE(sc.session_purchases, 0)) AS total_site_purchases,
+  SUM(COALESCE(sc.session_revenue, 0)) AS total_site_revenue,
 
-    count(case when page_title='Enter Key Page_Title' then session end) as enterpagename_session_count,
-    count(case when page_title='Enter Key Page_Title' and source in ('google','bing') and medium like 'organic%' then session end) as enterpagename_organic_session_count,
+  -- 2. MICRO TARGET: PURE ORGANIC HOMEPAGE LANDINGS (First Touch Only)
+  COUNT(DISTINCT CASE 
+    WHEN sb.landing_page_title = 'Home - Dipesh Shah Photography' -- Updated to match your exact live title
+    AND COALESCE(sb.source, 'direct') IN ('google','bing','yahoo','duckduckgo') 
+    AND COALESCE(sb.medium, 'none') = 'organic' 
+    THEN sb.unique_session_id 
+  END) AS homepage_organic_sessions,
+  
+  SUM(CASE 
+    WHEN sb.landing_page_title = 'Home - Dipesh Shah Photography' 
+    AND COALESCE(sb.source, 'direct') IN ('google','bing','yahoo','duckduckgo') 
+    AND COALESCE(sb.medium, 'none') = 'organic' 
+    THEN COALESCE(sc.session_purchases, 0) ELSE 0 
+  END) AS homepage_organic_purchases,
+  
+  SUM(CASE 
+    WHEN sb.landing_page_title = 'Home - Dipesh Shah Photography' 
+    AND COALESCE(sb.source, 'direct') IN ('google','bing','yahoo','duckduckgo') 
+    AND COALESCE(sb.medium, 'none') = 'organic' 
+    THEN COALESCE(sc.session_revenue, 0) ELSE 0 
+  END) AS homepage_organic_revenue,
 
-    count(case when page_title='Enter Key Page_Title' then session end) as enterpagename_session_count,
-    count(case when page_title='Enter Key Page_Title' and source in ('google','bing') and medium like 'organic%' then session end) as enterpagename_organic_session_count,
+  -- 3. MICRO TARGET: PURE ORGANIC LOGIN PAGE LANDINGS (First Touch Only)
+  COUNT(DISTINCT CASE 
+    WHEN sb.landing_page_title = 'Enter Login Page_Title' -- Replace with your actual Login Page Title
+    AND COALESCE(sb.source, 'direct') IN ('google','bing','yahoo','duckduckgo') 
+    AND COALESCE(sb.medium, 'none') = 'organic' 
+    THEN sb.unique_session_id 
+  END) AS login_page_organic_sessions,
+  
+  SUM(CASE 
+    WHEN sb.landing_page_title = 'Enter Login Page_Title' 
+    AND COALESCE(sb.source, 'direct') IN ('google','bing','yahoo','duckduckgo') 
+    AND COALESCE(sb.medium, 'none') = 'organic' 
+    THEN COALESCE(sc.session_purchases, 0) ELSE 0 
+  END) AS login_page_organic_purchases,
+  
+  SUM(CASE 
+    WHEN sb.landing_page_title = 'Enter Login Page_Title' 
+    AND COALESCE(sb.source, 'direct') IN ('google','bing','yahoo','duckduckgo') 
+    AND COALESCE(sb.medium, 'none') = 'organic' 
+    THEN COALESCE(sc.session_revenue, 0) ELSE 0 
+  END) AS login_page_organic_revenue
 
-    count(case when page_title='Enter Key Page_Title' then session end) as enterpagename_page_session_count,
-    count(case when page_title='Enter Key Page_Title' and source in ('google','bing') and medium like 'organic%' then session end) as enterpagename_organic_session_count,
-
-from attribution
-group by 1
-order by 2 desc
--- order by timestamp desc,date,time asc
+FROM session_base sb
+LEFT JOIN session_conversions sc ON sb.unique_session_id = sc.unique_session_id
+GROUP BY 1
+ORDER BY date DESC;
