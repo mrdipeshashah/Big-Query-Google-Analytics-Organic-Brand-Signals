@@ -41,7 +41,6 @@ SELECT
   -- CORE DATE DIMENSIONS
   sb.date,
   EXTRACT(YEAR FROM sb.date) AS year,
-  -- Continuous Chronological Month Index (Jan 2025 = 1, Dec 2025 = 12, Jan 2026 = 13...)
   ((EXTRACT(YEAR FROM sb.date) - 2025) * 12) + EXTRACT(MONTH FROM sb.date) AS month_number,
   FORMAT_DATE('%b-%Y', sb.date) AS month_year, -- Formats as 'Jan-2025'
   EXTRACT(WEEK FROM sb.date) AS week_number,
