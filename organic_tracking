@@ -12,7 +12,7 @@ WITH global_session_first_touch AS (
              THEN LOWER(collected_traffic_source.manual_medium) 
         END) AS landing_medium
   FROM `mrdipeshashah.analytics_343520795.events_*`
-  WHERE _TABLE_SUFFIX BETWEEN '20250101' AND '20261231'
+  WHERE _TABLE_SUFFIX >= '20250101'
   GROUP BY unique_session_id, event_date
 ),
 
@@ -33,7 +33,7 @@ session_conversions AS (
     COUNT(CASE WHEN event_name = 'purchase' THEN 1 END) AS session_purchases,
     SUM(CASE WHEN event_name = 'purchase' THEN COALESCE(event_value_in_usd, 0) END) AS session_revenue
   FROM `mrdipeshashah.analytics_343520795.events_*`
-  WHERE _TABLE_SUFFIX BETWEEN '20250101' AND '20261231'
+  WHERE _TABLE_SUFFIX >= '20250101'
   GROUP BY unique_session_id
 )
 
@@ -45,7 +45,7 @@ SELECT
   ((EXTRACT(YEAR FROM sb.date) - 2025) * 12) + EXTRACT(MONTH FROM sb.date) AS month_number,
   FORMAT_DATE('%b-%Y', sb.date) AS month_year, -- Formats as 'Jan-2025'
   EXTRACT(WEEK FROM sb.date) AS week_number,
-  DATE_TRUNC(sb.date, WEEK(MONDAY)) AS week_starting_monday,
+  DATE_TRUNC(sb.date, WEEK(MONDAY)) AS week_starting,
   
   -- MACRO SITE TOTALS
   COUNT(DISTINCT sb.unique_session_id) AS total_site_sessions,
@@ -112,6 +112,6 @@ GROUP BY
   month_number,
   month_year,
   week_number,
-  week_starting_monday
+  week_starting
 ORDER BY 
   date DESC;
