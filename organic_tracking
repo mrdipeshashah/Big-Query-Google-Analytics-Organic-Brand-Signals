@@ -1,20 +1,30 @@
-WITH session_base AS (
+WITH global_session_first_touch AS (
   SELECT
-    PARSE_DATE('%Y%m%d', event_date) AS date,
-    user_pseudo_id AS user_id,
-    -- Unique session key combination
     CONCAT((SELECT value.int_value FROM UNNEST(event_params) WHERE key = 'ga_session_id'), user_pseudo_id) AS unique_session_id,
-    -- Isolate the true Landing Page Title
+    PARSE_DATE('%Y%m%d', event_date) AS session_start_date,
     MAX(CASE WHEN (SELECT value.int_value FROM UNNEST(event_params) WHERE key = 'entrances') = 1 
              THEN (SELECT value.string_value FROM UNNEST(event_params) WHERE key = 'page_title') 
         END) AS landing_page_title,
-    -- Pull the populated traffic source across the entire session
-    MAX(LOWER(collected_traffic_source.manual_source)) AS source,
-    MAX(LOWER(collected_traffic_source.manual_medium)) AS medium
-  FROM `enter.tablename_123456.events_*`
-  -- Manage your date range shard costs here
+    MAX(CASE WHEN (SELECT value.int_value FROM UNNEST(event_params) WHERE key = 'entrances') = 1 
+             THEN LOWER(collected_traffic_source.manual_source) 
+        END) AS landing_source,
+    MAX(CASE WHEN (SELECT value.int_value FROM UNNEST(event_params) WHERE key = 'entrances') = 1 
+             THEN LOWER(collected_traffic_source.manual_medium) 
+        END) AS landing_medium
+  FROM `mrdipeshashah.analytics_343520795.events_*`
   WHERE _TABLE_SUFFIX BETWEEN '20250101' AND '20261231'
-  GROUP BY date, user_id, unique_session_id
+  GROUP BY unique_session_id, event_date
+),
+
+session_attribution AS (
+  SELECT 
+    unique_session_id,
+    MIN(session_start_date) AS date,
+    MAX(landing_page_title) AS landing_page_title,
+    COALESCE(MAX(landing_source), 'direct') AS source,
+    COALESCE(MAX(landing_medium), 'none') AS medium
+  FROM global_session_first_touch
+  GROUP BY unique_session_id
 ),
 
 session_conversions AS (
@@ -22,7 +32,7 @@ session_conversions AS (
     CONCAT((SELECT value.int_value FROM UNNEST(event_params) WHERE key = 'ga_session_id'), user_pseudo_id) AS unique_session_id,
     COUNT(CASE WHEN event_name = 'purchase' THEN 1 END) AS session_purchases,
     SUM(CASE WHEN event_name = 'purchase' THEN COALESCE(event_value_in_usd, 0) END) AS session_revenue
-  FROM `enter.tablename_123456.events_*`
+  FROM `mrdipeshashah.analytics_343520795.events_*`
   WHERE _TABLE_SUFFIX BETWEEN '20250101' AND '20261231'
   GROUP BY unique_session_id
 )
@@ -30,56 +40,67 @@ session_conversions AS (
 SELECT
   sb.date,
   
-  -- 1. MACRO TOTALS (For calculating percentages later)
+  -- MACRO SITE TOTALS
   COUNT(DISTINCT sb.unique_session_id) AS total_site_sessions,
   SUM(COALESCE(sc.session_purchases, 0)) AS total_site_purchases,
   SUM(COALESCE(sc.session_revenue, 0)) AS total_site_revenue,
 
-  -- 2. MICRO TARGET: PURE ORGANIC HOMEPAGE LANDINGS (First Touch Only)
-  COUNT(DISTINCT CASE 
-    WHEN sb.landing_page_title = 'Home - Dipesh Shah Photography' -- Updated to match your exact live title
-    AND COALESCE(sb.source, 'direct') IN ('google','bing','yahoo','duckduckgo') 
-    AND COALESCE(sb.medium, 'none') = 'organic' 
-    THEN sb.unique_session_id 
-  END) AS homepage_organic_sessions,
-  
-  SUM(CASE 
-    WHEN sb.landing_page_title = 'Home - Dipesh Shah Photography' 
-    AND COALESCE(sb.source, 'direct') IN ('google','bing','yahoo','duckduckgo') 
-    AND COALESCE(sb.medium, 'none') = 'organic' 
-    THEN COALESCE(sc.session_purchases, 0) ELSE 0 
-  END) AS homepage_organic_purchases,
-  
-  SUM(CASE 
-    WHEN sb.landing_page_title = 'Home - Dipesh Shah Photography' 
-    AND COALESCE(sb.source, 'direct') IN ('google','bing','yahoo','duckduckgo') 
-    AND COALESCE(sb.medium, 'none') = 'organic' 
-    THEN COALESCE(sc.session_revenue, 0) ELSE 0 
-  END) AS homepage_organic_revenue,
+  -------------------------------------------------------------------------
+  -- HOMEPAGE DETAILED SEGMENTS
+  -------------------------------------------------------------------------
+  -- Google Organic
+  COUNT(DISTINCT CASE WHEN sb.landing_page_title = 'Home - Dipesh Shah Photography' AND sb.source = 'google' AND sb.medium = 'organic' THEN sb.unique_session_id END) AS homepage_organic_google_sessions,
+  -- Google Organic Only (Fixed)
+  COUNT(DISTINCT CASE WHEN sb.landing_page_title = 'Home - Dipesh Shah Photography' AND sb.source = 'google' AND sb.medium = 'organic' THEN sb.unique_session_id END) AS homepage_organic_google_sessions,
+  SUM(CASE WHEN sb.landing_page_title = 'Home - Dipesh Shah Photography' AND sb.source = 'google' AND sb.medium = 'organic' THEN COALESCE(sc.session_purchases, 0) ELSE 0 END) AS homepage_organic_google_purchases,
+  SUM(CASE WHEN sb.landing_page_title = 'Home - Dipesh Shah Photography' AND sb.source = 'google' AND sb.medium = 'organic' THEN COALESCE(sc.session_revenue, 0) ELSE 0 END) AS homepage_organic_google_revenue,
+  SUM(CASE WHEN sb.landing_page_title = 'Home - Dipesh Shah Photography' AND sb.source = 'google' AND sb.medium = 'organic' THEN COALESCE(sc.session_revenue, 0) ELSE 0 END) AS homepage_organic_google_revenue,
 
-  -- 3. MICRO TARGET: PURE ORGANIC LOGIN PAGE LANDINGS (First Touch Only)
-  COUNT(DISTINCT CASE 
-    WHEN sb.landing_page_title = 'Enter Login Page_Title' -- Replace with your actual Login Page Title
-    AND COALESCE(sb.source, 'direct') IN ('google','bing','yahoo','duckduckgo') 
-    AND COALESCE(sb.medium, 'none') = 'organic' 
-    THEN sb.unique_session_id 
-  END) AS login_page_organic_sessions,
-  
-  SUM(CASE 
-    WHEN sb.landing_page_title = 'Enter Login Page_Title' 
-    AND COALESCE(sb.source, 'direct') IN ('google','bing','yahoo','duckduckgo') 
-    AND COALESCE(sb.medium, 'none') = 'organic' 
-    THEN COALESCE(sc.session_purchases, 0) ELSE 0 
-  END) AS login_page_organic_purchases,
-  
-  SUM(CASE 
-    WHEN sb.landing_page_title = 'Enter Login Page_Title' 
-    AND COALESCE(sb.source, 'direct') IN ('google','bing','yahoo','duckduckgo') 
-    AND COALESCE(sb.medium, 'none') = 'organic' 
-    THEN COALESCE(sc.session_revenue, 0) ELSE 0 
-  END) AS login_page_organic_revenue
+  -- Bing Organic
+  COUNT(DISTINCT CASE WHEN sb.landing_page_title = 'Home - Dipesh Shah Photography' AND sb.source = 'bing' AND sb.medium = 'organic' THEN sb.unique_session_id END) AS homepage_organic_bing_sessions,
+  SUM(CASE WHEN sb.landing_page_title = 'Home - Dipesh Shah Photography' AND sb.source = 'bing' AND sb.medium = 'organic' THEN COALESCE(sc.session_purchases, 0) ELSE 0 END) AS homepage_organic_bing_purchases,
+  SUM(CASE WHEN sb.landing_page_title = 'Home - Dipesh Shah Photography' AND sb.source = 'bing' AND sb.medium = 'organic' THEN COALESCE(sc.session_revenue, 0) ELSE 0 END) AS homepage_organic_bing_revenue,
 
-FROM session_base sb
+  -- Yahoo Organic
+  COUNT(DISTINCT CASE WHEN sb.landing_page_title = 'Home - Dipesh Shah Photography' AND sb.source = 'yahoo' AND sb.medium = 'organic' THEN sb.unique_session_id END) AS homepage_organic_yahoo_sessions,
+  SUM(CASE WHEN sb.landing_page_title = 'Home - Dipesh Shah Photography' AND sb.source = 'yahoo' AND sb.medium = 'organic' THEN COALESCE(sc.session_purchases, 0) ELSE 0 END) AS homepage_organic_yahoo_purchases,
+  SUM(CASE WHEN sb.landing_page_title = 'Home - Dipesh Shah Photography' AND sb.source = 'yahoo' AND sb.medium = 'organic' THEN COALESCE(sc.session_revenue, 0) ELSE 0 END) AS homepage_organic_yahoo_revenue,
+
+  -- DuckDuckGo Organic
+  COUNT(DISTINCT CASE WHEN sb.landing_page_title = 'Home - Dipesh Shah Photography' AND sb.source = 'duckduckgo' AND sb.medium = 'organic' THEN sb.unique_session_id END) AS homepage_organic_duckduckgo_sessions,
+  SUM(CASE WHEN sb.landing_page_title = 'Home - Dipesh Shah Photography' AND sb.source = 'duckduckgo' AND sb.medium = 'organic' THEN COALESCE(sc.session_purchases, 0) ELSE 0 END) AS homepage_organic_duckduckgo_purchases,
+  SUM(CASE WHEN sb.landing_page_title = 'Home - Dipesh Shah Photography' AND sb.source = 'duckduckgo' AND sb.medium = 'organic' THEN COALESCE(sc.session_revenue, 0) ELSE 0 END) AS homepage_organic_duckduckgo_revenue,
+
+  -- [TEMPLATE] AI Search (Example: Perplexity/OpenAI - often categorized as referral/organic depending on data tags)
+  COUNT(DISTINCT CASE WHEN sb.landing_page_title = 'Home - Dipesh Shah Photography' AND sb.source IN ('perplexity', 'openai') THEN sb.unique_session_id END) AS homepage_organic_ai_sessions,
+  SUM(CASE WHEN sb.landing_page_title = 'Home - Dipesh Shah Photography' AND sb.source IN ('perplexity', 'openai') THEN COALESCE(sc.session_purchases, 0) ELSE 0 END) AS homepage_organic_ai_purchases,
+  SUM(CASE WHEN sb.landing_page_title = 'Home - Dipesh Shah Photography' AND sb.source IN ('perplexity', 'openai') THEN COALESCE(sc.session_revenue, 0) ELSE 0 END) AS homepage_organic_ai_revenue,
+
+  -- All Other Long-Tail Organic (Catch-all fallback)
+  COUNT(DISTINCT CASE WHEN sb.landing_page_title = 'Home - Dipesh Shah Photography' AND sb.source NOT IN ('google','bing','yahoo','duckduckgo','perplexity','openai') AND sb.medium = 'organic' THEN sb.unique_session_id END) AS homepage_organic_other_sessions,
+  SUM(CASE WHEN sb.landing_page_title = 'Home - Dipesh Shah Photography' AND sb.source NOT IN ('google','bing','yahoo','duckduckgo','perplexity','openai') AND sb.medium = 'organic' THEN COALESCE(sc.session_purchases, 0) ELSE 0 END) AS homepage_organic_other_purchases,
+  SUM(CASE WHEN sb.landing_page_title = 'Home - Dipesh Shah Photography' AND sb.source NOT IN ('google','bing','yahoo','duckduckgo','perplexity','openai') AND sb.medium = 'organic' THEN COALESCE(sc.session_revenue, 0) ELSE 0 END) AS homepage_organic_other_revenue,
+
+
+  -------------------------------------------------------------------------
+  -- LOGIN PAGE DETAILED SEGMENTS
+  -------------------------------------------------------------------------
+  -- Google Organic
+  COUNT(DISTINCT CASE WHEN sb.landing_page_title = 'Enter Login Page_Title' AND sb.source = 'google' AND sb.medium = 'organic' THEN sb.unique_session_id END) AS login_organic_google_sessions,
+  SUM(CASE WHEN sb.landing_page_title = 'Enter Login Page_Title' AND sb.source = 'google' AND sb.medium = 'organic' THEN COALESCE(sc.session_purchases, 0) ELSE 0 END) AS login_organic_google_purchases,
+  SUM(CASE WHEN sb.landing_page_title = 'Enter Login Page_Title' AND sb.source = 'google' AND sb.medium = 'organic' THEN COALESCE(sc.session_revenue, 0) ELSE 0 END) AS login_organic_google_revenue,
+
+  -- Bing Organic
+  COUNT(DISTINCT CASE WHEN sb.landing_page_title = 'Enter Login Page_Title' AND sb.source = 'bing' AND sb.medium = 'organic' THEN sb.unique_session_id END) AS login_organic_bing_sessions,
+  SUM(CASE WHEN sb.landing_page_title = 'Enter Login Page_Title' AND sb.source = 'bing' AND sb.medium = 'organic' THEN COALESCE(sc.session_purchases, 0) ELSE 0 END) AS login_organic_bing_purchases,
+  SUM(CASE WHEN sb.landing_page_title = 'Enter Login Page_Title' AND sb.source = 'bing' AND sb.medium = 'organic' THEN COALESCE(sc.session_revenue, 0) ELSE 0 END) AS login_organic_bing_revenue,
+
+  -- All Other Organic Combinations for Login
+  COUNT(DISTINCT CASE WHEN sb.landing_page_title = 'Enter Login Page_Title' AND sb.source NOT IN ('google','bing') AND sb.medium = 'organic' THEN sb.unique_session_id END) AS login_organic_other_sessions,
+  SUM(CASE WHEN sb.landing_page_title = 'Enter Login Page_Title' AND sb.source NOT IN ('google','bing') AND sb.medium = 'organic' THEN COALESCE(sc.session_purchases, 0) ELSE 0 END) AS login_organic_other_purchases,
+  SUM(CASE WHEN sb.landing_page_title = 'Enter Login Page_Title' AND sb.source NOT IN ('google','bing') AND sb.medium = 'organic' THEN COALESCE(sc.session_revenue, 0) ELSE 0 END) AS login_organic_other_revenue
+
+FROM session_attribution sb
 LEFT JOIN session_conversions sc ON sb.unique_session_id = sc.unique_session_id
 GROUP BY 1
 ORDER BY date DESC;
