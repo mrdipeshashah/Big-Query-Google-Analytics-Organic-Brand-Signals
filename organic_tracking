@@ -38,7 +38,14 @@ session_conversions AS (
 )
 
 SELECT
+  -- CORE DATE DIMENSIONS
   sb.date,
+  EXTRACT(YEAR FROM sb.date) AS year,
+  -- Continuous Chronological Month Index (Jan 2025 = 1, Dec 2025 = 12, Jan 2026 = 13...)
+  ((EXTRACT(YEAR FROM sb.date) - 2025) * 12) + EXTRACT(MONTH FROM sb.date) AS month_number,
+  FORMAT_DATE('%b-%Y', sb.date) AS month_year, -- Formats as 'Jan-2025'
+  EXTRACT(WEEK FROM sb.date) AS week_number,
+  DATE_TRUNC(sb.date, WEEK(MONDAY)) AS week_starting_monday,
   
   -- MACRO SITE TOTALS
   COUNT(DISTINCT sb.unique_session_id) AS total_site_sessions,
@@ -68,12 +75,12 @@ SELECT
   SUM(CASE WHEN sb.landing_page_title = 'Home - Dipesh Shah Photography' AND sb.source = 'duckduckgo' AND sb.medium = 'organic' THEN COALESCE(sc.session_purchases, 0) ELSE 0 END) AS homepage_organic_duckduckgo_purchases,
   SUM(CASE WHEN sb.landing_page_title = 'Home - Dipesh Shah Photography' AND sb.source = 'duckduckgo' AND sb.medium = 'organic' THEN COALESCE(sc.session_revenue, 0) ELSE 0 END) AS homepage_organic_duckduckgo_revenue,
 
-  -- [TEMPLATE] AI Search (Example: Perplexity/OpenAI - often categorized as referral/organic depending on data tags)
+  -- AI Search (Perplexity/OpenAI)
   COUNT(DISTINCT CASE WHEN sb.landing_page_title = 'Home - Dipesh Shah Photography' AND sb.source IN ('perplexity', 'openai') THEN sb.unique_session_id END) AS homepage_organic_ai_sessions,
   SUM(CASE WHEN sb.landing_page_title = 'Home - Dipesh Shah Photography' AND sb.source IN ('perplexity', 'openai') THEN COALESCE(sc.session_purchases, 0) ELSE 0 END) AS homepage_organic_ai_purchases,
   SUM(CASE WHEN sb.landing_page_title = 'Home - Dipesh Shah Photography' AND sb.source IN ('perplexity', 'openai') THEN COALESCE(sc.session_revenue, 0) ELSE 0 END) AS homepage_organic_ai_revenue,
 
-  -- All Other Long-Tail Organic (Catch-all fallback)
+  -- All Other Long-Tail Organic
   COUNT(DISTINCT CASE WHEN sb.landing_page_title = 'Home - Dipesh Shah Photography' AND sb.source NOT IN ('google','bing','yahoo','duckduckgo','perplexity','openai') AND sb.medium = 'organic' THEN sb.unique_session_id END) AS homepage_organic_other_sessions,
   SUM(CASE WHEN sb.landing_page_title = 'Home - Dipesh Shah Photography' AND sb.source NOT IN ('google','bing','yahoo','duckduckgo','perplexity','openai') AND sb.medium = 'organic' THEN COALESCE(sc.session_purchases, 0) ELSE 0 END) AS homepage_organic_other_purchases,
   SUM(CASE WHEN sb.landing_page_title = 'Home - Dipesh Shah Photography' AND sb.source NOT IN ('google','bing','yahoo','duckduckgo','perplexity','openai') AND sb.medium = 'organic' THEN COALESCE(sc.session_revenue, 0) ELSE 0 END) AS homepage_organic_other_revenue,
@@ -92,12 +99,19 @@ SELECT
   SUM(CASE WHEN sb.landing_page_title = 'About - Dipesh Shah Photography' AND sb.source = 'bing' AND sb.medium = 'organic' THEN COALESCE(sc.session_purchases, 0) ELSE 0 END) AS about_organic_bing_purchases,
   SUM(CASE WHEN sb.landing_page_title = 'About - Dipesh Shah Photography' AND sb.source = 'bing' AND sb.medium = 'organic' THEN COALESCE(sc.session_revenue, 0) ELSE 0 END) AS about_organic_bing_revenue,
 
-  -- All Other Organic Combinations for Login
+  -- All Other Organic Combinations for About Page
   COUNT(DISTINCT CASE WHEN sb.landing_page_title = 'About - Dipesh Shah Photography' AND sb.source NOT IN ('google','bing') AND sb.medium = 'organic' THEN sb.unique_session_id END) AS about_organic_other_sessions,
   SUM(CASE WHEN sb.landing_page_title = 'About - Dipesh Shah Photography' AND sb.source NOT IN ('google','bing') AND sb.medium = 'organic' THEN COALESCE(sc.session_purchases, 0) ELSE 0 END) AS about_organic_other_purchases,
   SUM(CASE WHEN sb.landing_page_title = 'About - Dipesh Shah Photography' AND sb.source NOT IN ('google','bing') AND sb.medium = 'organic' THEN COALESCE(sc.session_revenue, 0) ELSE 0 END) AS about_organic_other_revenue
 
 FROM session_attribution sb
 LEFT JOIN session_conversions sc ON sb.unique_session_id = sc.unique_session_id
-GROUP BY 1
-ORDER BY date DESC;
+GROUP BY 
+  sb.date,
+  year,
+  month_number,
+  month_year,
+  week_number,
+  week_starting_monday
+ORDER BY 
+  date DESC;
