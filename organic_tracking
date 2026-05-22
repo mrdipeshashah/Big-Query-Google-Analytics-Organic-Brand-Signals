@@ -50,10 +50,7 @@ SELECT
   -------------------------------------------------------------------------
   -- Google Organic
   COUNT(DISTINCT CASE WHEN sb.landing_page_title = 'Home - Dipesh Shah Photography' AND sb.source = 'google' AND sb.medium = 'organic' THEN sb.unique_session_id END) AS homepage_organic_google_sessions,
-  -- Google Organic Only (Fixed)
-  COUNT(DISTINCT CASE WHEN sb.landing_page_title = 'Home - Dipesh Shah Photography' AND sb.source = 'google' AND sb.medium = 'organic' THEN sb.unique_session_id END) AS homepage_organic_google_sessions,
   SUM(CASE WHEN sb.landing_page_title = 'Home - Dipesh Shah Photography' AND sb.source = 'google' AND sb.medium = 'organic' THEN COALESCE(sc.session_purchases, 0) ELSE 0 END) AS homepage_organic_google_purchases,
-  SUM(CASE WHEN sb.landing_page_title = 'Home - Dipesh Shah Photography' AND sb.source = 'google' AND sb.medium = 'organic' THEN COALESCE(sc.session_revenue, 0) ELSE 0 END) AS homepage_organic_google_revenue,
   SUM(CASE WHEN sb.landing_page_title = 'Home - Dipesh Shah Photography' AND sb.source = 'google' AND sb.medium = 'organic' THEN COALESCE(sc.session_revenue, 0) ELSE 0 END) AS homepage_organic_google_revenue,
 
   -- Bing Organic
@@ -83,22 +80,22 @@ SELECT
 
 
   -------------------------------------------------------------------------
-  -- LOGIN PAGE DETAILED SEGMENTS
+  -- ABOUT PAGE DETAILED SEGMENTS
   -------------------------------------------------------------------------
   -- Google Organic
-  COUNT(DISTINCT CASE WHEN sb.landing_page_title = 'Enter Login Page_Title' AND sb.source = 'google' AND sb.medium = 'organic' THEN sb.unique_session_id END) AS login_organic_google_sessions,
-  SUM(CASE WHEN sb.landing_page_title = 'Enter Login Page_Title' AND sb.source = 'google' AND sb.medium = 'organic' THEN COALESCE(sc.session_purchases, 0) ELSE 0 END) AS login_organic_google_purchases,
-  SUM(CASE WHEN sb.landing_page_title = 'Enter Login Page_Title' AND sb.source = 'google' AND sb.medium = 'organic' THEN COALESCE(sc.session_revenue, 0) ELSE 0 END) AS login_organic_google_revenue,
+  COUNT(DISTINCT CASE WHEN sb.landing_page_title = 'About - Dipesh Shah Photography' AND sb.source = 'google' AND sb.medium = 'organic' THEN sb.unique_session_id END) AS about_organic_google_sessions,
+  SUM(CASE WHEN sb.landing_page_title = 'About - Dipesh Shah Photography' AND sb.source = 'google' AND sb.medium = 'organic' THEN COALESCE(sc.session_purchases, 0) ELSE 0 END) AS about_organic_google_purchases,
+  SUM(CASE WHEN sb.landing_page_title = 'About - Dipesh Shah Photography' AND sb.source = 'google' AND sb.medium = 'organic' THEN COALESCE(sc.session_revenue, 0) ELSE 0 END) AS about_organic_google_revenue,
 
   -- Bing Organic
-  COUNT(DISTINCT CASE WHEN sb.landing_page_title = 'Enter Login Page_Title' AND sb.source = 'bing' AND sb.medium = 'organic' THEN sb.unique_session_id END) AS login_organic_bing_sessions,
-  SUM(CASE WHEN sb.landing_page_title = 'Enter Login Page_Title' AND sb.source = 'bing' AND sb.medium = 'organic' THEN COALESCE(sc.session_purchases, 0) ELSE 0 END) AS login_organic_bing_purchases,
-  SUM(CASE WHEN sb.landing_page_title = 'Enter Login Page_Title' AND sb.source = 'bing' AND sb.medium = 'organic' THEN COALESCE(sc.session_revenue, 0) ELSE 0 END) AS login_organic_bing_revenue,
+  COUNT(DISTINCT CASE WHEN sb.landing_page_title = 'About - Dipesh Shah Photography' AND sb.source = 'bing' AND sb.medium = 'organic' THEN sb.unique_session_id END) AS about_organic_bing_sessions,
+  SUM(CASE WHEN sb.landing_page_title = 'About - Dipesh Shah Photography' AND sb.source = 'bing' AND sb.medium = 'organic' THEN COALESCE(sc.session_purchases, 0) ELSE 0 END) AS about_organic_bing_purchases,
+  SUM(CASE WHEN sb.landing_page_title = 'About - Dipesh Shah Photography' AND sb.source = 'bing' AND sb.medium = 'organic' THEN COALESCE(sc.session_revenue, 0) ELSE 0 END) AS about_organic_bing_revenue,
 
   -- All Other Organic Combinations for Login
-  COUNT(DISTINCT CASE WHEN sb.landing_page_title = 'Enter Login Page_Title' AND sb.source NOT IN ('google','bing') AND sb.medium = 'organic' THEN sb.unique_session_id END) AS login_organic_other_sessions,
-  SUM(CASE WHEN sb.landing_page_title = 'Enter Login Page_Title' AND sb.source NOT IN ('google','bing') AND sb.medium = 'organic' THEN COALESCE(sc.session_purchases, 0) ELSE 0 END) AS login_organic_other_purchases,
-  SUM(CASE WHEN sb.landing_page_title = 'Enter Login Page_Title' AND sb.source NOT IN ('google','bing') AND sb.medium = 'organic' THEN COALESCE(sc.session_revenue, 0) ELSE 0 END) AS login_organic_other_revenue
+  COUNT(DISTINCT CASE WHEN sb.landing_page_title = 'About - Dipesh Shah Photography' AND sb.source NOT IN ('google','bing') AND sb.medium = 'organic' THEN sb.unique_session_id END) AS about_organic_other_sessions,
+  SUM(CASE WHEN sb.landing_page_title = 'About - Dipesh Shah Photography' AND sb.source NOT IN ('google','bing') AND sb.medium = 'organic' THEN COALESCE(sc.session_purchases, 0) ELSE 0 END) AS about_organic_other_purchases,
+  SUM(CASE WHEN sb.landing_page_title = 'About - Dipesh Shah Photography' AND sb.source NOT IN ('google','bing') AND sb.medium = 'organic' THEN COALESCE(sc.session_revenue, 0) ELSE 0 END) AS about_organic_other_revenue
 
 FROM session_attribution sb
 LEFT JOIN session_conversions sc ON sb.unique_session_id = sc.unique_session_id
