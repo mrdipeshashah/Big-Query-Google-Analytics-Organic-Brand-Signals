@@ -101,8 +101,13 @@ SELECT
   -- All Other Organic Combinations for About Page
   COUNT(DISTINCT CASE WHEN REGEXP_CONTAINS(sb.landing_page_title, '(?i)about|company|who-we-are|our-story') AND sb.source NOT IN ('google', 'bing') AND sb.medium = 'organic' THEN sb.unique_session_id END) AS about_organic_other_sessions,
   SUM(CASE WHEN REGEXP_CONTAINS(sb.landing_page_title, '(?i)about|company|who-we-are|our-story') AND sb.source NOT IN ('google', 'bing') AND sb.medium = 'organic' THEN COALESCE(sc.session_purchases, 0) ELSE 0 END) AS about_organic_other_purchases,
-  SUM(CASE WHEN REGEXP_CONTAINS(sb.landing_page_title, '(?i)about|company|who-we-are|our-story') AND sb.source NOT IN ('google', 'bing') AND sb.medium = 'organic' THEN COALESCE(sc.session_revenue, 0) ELSE 0 END) AS about_organic_other_revenue
- 
+  SUM(CASE WHEN REGEXP_CONTAINS(sb.landing_page_title, '(?i)about|company|who-we-are|our-story') AND sb.source NOT IN ('google', 'bing') AND sb.medium = 'organic' THEN COALESCE(sc.session_revenue, 0) ELSE 0 END) AS about_organic_other_revenue,
+
+  -- CUSTOMER ESCALATION / SYSTEM TRACKING (NO COMMA ON THE LAST LINE!)
+  COUNT(DISTINCT CASE WHEN REGEXP_CONTAINS(sb.landing_page_title, '(?i)contact|support|help|complaints|refund|returns') THEN sb.unique_session_id END) AS escalation_total_sessions,
+  SUM(CASE WHEN REGEXP_CONTAINS(sb.landing_page_title, '(?i)contact|support|help|complaints|refund|returns') THEN COALESCE(sc.session_purchases, 0) ELSE 0 END) AS escalation_total_purchases,
+  SUM(CASE WHEN REGEXP_CONTAINS(sb.landing_page_title, '(?i)contact|support|help|complaints|refund|returns') THEN COALESCE(sc.session_revenue, 0) ELSE 0 END) AS escalation_total_revenue
+  
 FROM session_attribution sb
 LEFT JOIN session_conversions sc ON sb.unique_session_id = sc.unique_session_id
 GROUP BY 
@@ -113,4 +118,4 @@ GROUP BY
   week_number,
   week_starting
 ORDER BY 
-  date DESC;
+  sb.date DESC;
