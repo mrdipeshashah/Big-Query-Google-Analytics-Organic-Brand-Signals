@@ -46,3 +46,5 @@ Using `landing_page_title` introduces data brittleness. If a marketing or design
 
 ### Resolution
 Changed the transformer routing filter logic to evaluate the structural URL string variable (`sb.landing_page`) rather than the cosmetic content variable (`sb.landing_page_title`). URLs are structural constants; page titles are editorial variables.
+
+> 💡 **Implementation Note:** This dashboard template provides a "90% copy-and-go" baseline framework. Because page title structures, URL subfolders, and e-commerce platform behaviors differ across tech stacks, the analytics engineer must manually audit and update the `CASE WHEN` pattern match strings (Lines 100-135) to align with their specific environment's page naming conventions before pushing to production.
