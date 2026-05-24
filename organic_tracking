@@ -103,10 +103,39 @@ SELECT
   SUM(CASE WHEN REGEXP_CONTAINS(sb.landing_page_title, '(?i)about|company|who-we-are|our-story') AND sb.source NOT IN ('google', 'bing') AND sb.medium = 'organic' THEN COALESCE(sc.session_purchases, 0) ELSE 0 END) AS about_organic_other_purchases,
   SUM(CASE WHEN REGEXP_CONTAINS(sb.landing_page_title, '(?i)about|company|who-we-are|our-story') AND sb.source NOT IN ('google', 'bing') AND sb.medium = 'organic' THEN COALESCE(sc.session_revenue, 0) ELSE 0 END) AS about_organic_other_revenue,
 
-  -- CUSTOMER ESCALATION / SYSTEM TRACKING (NO COMMA ON THE LAST LINE!)
-  COUNT(DISTINCT CASE WHEN REGEXP_CONTAINS(sb.landing_page_title, '(?i)contact|support|help|complaints|refund|returns') THEN sb.unique_session_id END) AS escalation_total_sessions,
-  SUM(CASE WHEN REGEXP_CONTAINS(sb.landing_page_title, '(?i)contact|support|help|complaints|refund|returns') THEN COALESCE(sc.session_purchases, 0) ELSE 0 END) AS escalation_total_purchases,
-  SUM(CASE WHEN REGEXP_CONTAINS(sb.landing_page_title, '(?i)contact|support|help|complaints|refund|returns') THEN COALESCE(sc.session_revenue, 0) ELSE 0 END) AS escalation_total_revenue
+    -- =========================================================================
+-- ESCALATION HUBS (OPERATIONAL FRICTION / REVENUE DRAINAGE)
+-- Evaluates the title string to safely bucket your live contact page test.
+-- =========================================================================
+SUM(CASE WHEN source = 'google' AND medium = 'organic' AND (
+  landing_page_title LIKE '%Working Together%' OR 
+  landing_page_title LIKE '%contact%' OR 
+  landing_page_title LIKE '%support%' OR 
+  landing_page_title LIKE '%help%' OR 
+  landing_page_title LIKE '%complaints%' OR 
+  landing_page_title LIKE '%refund%' OR 
+  landing_page_title LIKE '%returns%'
+) THEN 1 ELSE 0 END) AS escalation_total_sessions,
+
+SUM(CASE WHEN source = 'google' AND medium = 'organic' AND (
+  landing_page_title LIKE '%Working Together%' OR 
+  landing_page_title LIKE '%contact%' OR 
+  landing_page_title LIKE '%support%' OR 
+  landing_page_title LIKE '%help%' OR 
+  landing_page_title LIKE '%complaints%' OR 
+  landing_page_title LIKE '%refund%' OR 
+  landing_page_title LIKE '%returns%'
+) THEN COALESCE(sc.session_purchases, 0) ELSE 0 END) AS escalation_total_purchases,
+
+SUM(CASE WHEN source = 'google' AND medium = 'organic' AND (
+  landing_page_title LIKE '%Working Together%' OR 
+  landing_page_title LIKE '%contact%' OR 
+  landing_page_title LIKE '%support%' OR 
+  landing_page_title LIKE '%help%' OR 
+  landing_page_title LIKE '%complaints%' OR 
+  landing_page_title LIKE '%refund%' OR 
+  landing_page_title LIKE '%returns%'
+) THEN COALESCE(sc.session_revenue, 0) ELSE 0.0 END) AS escalation_total_revenue,
   
 FROM session_attribution sb
 LEFT JOIN session_conversions sc ON sb.unique_session_id = sc.unique_session_id
