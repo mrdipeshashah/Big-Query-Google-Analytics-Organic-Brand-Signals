@@ -29,3 +29,20 @@ If both lines move in perfect lockstep without any lag, it often implies macro-m
 
 3. Causation (Direct Funnel Efficiency)
 True causation is proven when you look at the ratios you just unlocked in your data. If your macro Share of Search stays completely flat, but your on-site homepage_organic_revenue % jumps from 40% to 100%, you have a definitive causative insight: your search volume didn't change, but your traffic quality or on-site conversion mechanics drastically improved.
+
+
+## 🐛 Bug Fix: Swapping Escalation Page Grouping from Page Title to Page URL
+
+### Context
+When tracking 'Escalation/Friction Hubs' (e.g., Contact, Support, Help pages) inside our data transformer engine, the code initially checked `sb.landing_page_title` using a regex pattern lookup looking for `contact|support|help`.
+
+### The Issue (The "Working Together" Disconnect)
+Live tests using mock UTM coordinates (`source=google&medium=organic`) to `https://photosbydipeshshah.com/contact/` returned `0` sessions in the escalation bucket. 
+
+While the network **URL path** contained the keyword `/contact/`, the CMS **Page Title** rendered dynamically as `"Working Together - Dipesh Shah Photography"`. Because the string `"Working Together"` lacks the explicit substring `"contact"`, the regex filter failed to match and silently routed the session to the `ELSE 0` fallback.
+
+### Impact / Root Cause
+Using `landing_page_title` introduces data brittleness. If a marketing or design team changes a page title for SEO testing (e.g., changing a "Contact Us" tab title to "Get In Touch" or "Working Together"), it silently breaks downstream financial and traffic attribution models in BigQuery.
+
+### Resolution
+Changed the transformer routing filter logic to evaluate the structural URL string variable (`sb.landing_page`) rather than the cosmetic content variable (`sb.landing_page_title`). URLs are structural constants; page titles are editorial variables.
