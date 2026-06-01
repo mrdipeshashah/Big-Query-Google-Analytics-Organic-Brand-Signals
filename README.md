@@ -6,8 +6,6 @@ The data studio dashboard (https://datastudio.google.com/reporting/136d63ae-6f40
 ## THE FRAMEWORK 
 Under this framework, **Organic Website Homepage Traffic** is viewed as the **"Little Brother" of Share of Search (SoS)**. Share of Search tracks the total volume of consumer interest in the market, homepage organic traffic captures the direct on-site crystallization of that demand. One cannot scale sustainably without the other.
 
-This model isolates three distinct relationship dynamics within this sibling relationship:
-
 ### Mini Case Study - The Lagged Effect
 For an e-commerce business mapping out KPI's and get deep into the data to understand the business. Developed a KPI tree and drilled into understanding the impact of brand and **Organic Homepage sessions**. There was a disconnect between brand and 'performance' the first step was building a view of the available data in isolating **Organic Homepage Sessions** then added in **Sos** data showing the lag between brand impact and traffic / conversion.
 
