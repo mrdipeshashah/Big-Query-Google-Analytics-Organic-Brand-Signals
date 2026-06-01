@@ -1,26 +1,28 @@
-# Organic Brand Signals Pipeline (organic-brand-signals-pipeline) OVERVIEW
+# OVERVIEW
 This repository contains Big Query code using Google Analytics raw data focusing on "organic search traffic" to isolate and track **brand demand signals**. This framework models web traffic as a lagging indicator of holistic marketing investments and structural funnel health.
 
 The data studio dashboard (https://datastudio.google.com/reporting/136d63ae-6f40-47dd-b484-f32ba8a8b64b) brings many of the insights to life around performance through the lens of user behavior timing.
 
 ## 📈 The Core Econometric Philosophy
-
+It's very much dependant on the business model in most cases organic traffic is very much linked into brand investments. 
 A common mistake in digital analytics is treating organic traffic as a "marketing-free layer" that generates its own customer demand. In reality, search volume behaves as a trailing echo of prior brand investments, offline exposure, and upstream campaign momentum. 
 
-This model isolates three distinct relationship dynamics within your search data:
+Under this framework, **Organic Web Homepage Traffic is viewed as the "Little Brother" of Share of Search (SoS)**. While macro Share of Search tracks the total volume of consumer interest in the open market, homepage organic traffic captures the direct on-site crystallization of that demand. One cannot scale sustainably without the other.
+
+This model isolates three distinct relationship dynamics within this sibling relationship:
 
 ### 1. The Lagged Effect (Trailing Brand Yield)
 In premium e-commerce tiers (£75, £150, and £200 product lines), top-of-funnel marketing campaigns rarely spark day-zero conversions. 
-* **The Cycle:** A high-impact brand campaign runs in **October**, causing an immediate spike in macro category Search interest.
-* **The Lag:** Users process the messaging, research alternatives, and evaluate their budgets over a 30, 60, or 90-day window.
-* **The Action:** The customer returns in **December** via a targeted branded search engine query, landing directly on your homepage to purchase.
+* **The Cycle:** A high-impact brand campaign runs in **October**, causing an immediate spike in macro Share of Search (SoS) across Google.
+* **The Sibling Lag:** The "big brother" (SoS) peaks immediately, but the "little brother" (Homepage Organic Sessions) remains quiet while users process messaging and evaluate budgets over a 30, 60, or 90-day window.
+* **The Action:** The consumer finally acts in **December**, executing a branded search query that lands directly on your homepage to purchase.
 * **Pipeline Application:** The timeline line charts inside this tracker are configured to pinpoint these offset waves, validating the delayed economic return of brand building.
 
 ### 2. Pure Correlation (The Rising Tide)
-Simultaneous spikes across all search entrance pages without any chronological delay typically suggest seasonal macro-market forces (e.g., Black Friday anomalies or structural industry-wide shifts) rather than standalone channel optimization success.
+Simultaneous spikes across macro search interest and all on-site landing pages without any chronological delay typically suggest seasonal macro-market forces (e.g., Black Friday anomalies or structural industry-wide shifts) rather than standalone channel optimization success.
 
 ### 3. True Causation (Funnel Efficiency Activation)
-Causation is isolated through on-site data ratios. If macro market demand stays entirely flat, but your on-site `homepage_organic_revenue_share %` scales, you have proven definitive structural causation: traffic composition and on-site checkout mechanics successfully improved.
+Causation is isolated through on-site data ratios. If macro market demand (Share of Search) stays entirely flat, but your on-site `homepage_organic_revenue_share %` scales, you have proven definitive structural causation: market demand didn't shift, but your internal traffic quality or conversion design mechanics successfully improved, allowing the "little brother" to convert more efficiently.
 
 ## 🐛 Core Engineering Patch: Defeating Page Title Brittleness
 
