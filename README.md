@@ -26,21 +26,10 @@ Causation is isolated through on-site data ratios. If macro market demand (Share
 
 ## IDENTIFYING KEY PAGES AND BUILDING THE LOGIC IN THE CODE
 
-### Context & Structural Bug
-When isolating **Escalation & Operational Friction Hubs** (e.g., Contact, Help, Support, and Refund interfaces) to calculate baseline revenue leakage, the data engine originally evaluated the cosmetic metadata variable: `sb.landing_page_title`.
-
-### The Problem
-During automated staging operations, mock search engine traffic directed to the structural endpoint `/contact/` routinely dropped to a `0` value inside the escalation bucket. 
-
-While the network **URL path** explicitly contained the string `/contact/`, the underlying content management system rendered the page title dynamically as `"Working Together - Dipesh Shah Photography"`. Because the string `"Working Together"` lacked the structural keyword `"contact"`, the regex filter dropped the match and incorrectly misrouted the session data to the fallback `ELSE 0` statement.
-
 ### The Operational Solution
-To be able to track 
+The key identifer to be able to track **Organic sessions** is the Landing Page Title (sb.landing_page_title) in the Google Analytics Big Query schema. If two pages or more have the same pagge title even if they have different URL's it will break the logic. The Landing Page Title has to be unique 
 
-
-Relying on cosmetic browser titles introduces severe code vulnerability. If a content team updates a title for an SEO optimization experiment (e.g., swapping a "Contact Us" tab title to "Get In Touch" or "Working Together"), it instantly and silently breaks downstream financial models and automated reporting logic.
-
-The transformation rules were entirely refactored to evaluate the immutable structural network path string (**`sb.landing_page`** / **`page_location`**) rather than the transient editorial title string. 
+For example there may be 2 homepages which are being A/B tested - if both homepages **sb.landing_page_title = Homepage** then the logic in the code will pick them both. If they need to be split then the landing page needs to be as follows: **sb.landing_page_title=Homepage** and **sb.landing_page_title=Home**
 
 ## 🗂️ Strategic Page Grouping Architecture & Commercial Impact
 
