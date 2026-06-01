@@ -1,8 +1,7 @@
 # Organic Brand Signals Pipeline (organic-brand-signals-pipeline)
+This repository contains Big Query code using Google Analytics raw data focusing on "organic search traffic" to isolate and track **brand demand signals**. This framework models web traffic as a lagging indicator of holistic marketing investments and structural funnel health.
 
-An advanced SQL data transformation and pipeline framework engineered for BigQuery and Looker Studio. This project deconstructs generic "organic search traffic" to isolate and track true **brand demand signals**, mapping customer velocity against high-value commercial paths and operational friction hubs.
-
-Instead of relying on out-of-the-box attribution models, this framework models web traffic as a lagging indicator of holistic marketing investments and structural funnel health.
+The data studio dashboard (https://datastudio.google.com/reporting/78e5657c-ac77-4fd9-a2ba-e620bb083c0b) brings many of the insights to life around performance through the lens of user behavior timing.
 
 ## 📊 Dashboard Profile
 * **Production Title:** Organic Search Intent & Brand Signals Tracker
