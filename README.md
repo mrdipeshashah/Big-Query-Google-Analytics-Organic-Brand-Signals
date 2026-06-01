@@ -1,9 +1,11 @@
 # OVERVIEW
-This repository contains Big Query code using Google Analytics raw data focusing on "organic search traffic" to isolate and track **brand demand signals**. This framework models web traffic as a lagging indicator of holistic marketing investments and structural funnel health.
+This repository contains Big Query code using Google Analytics raw data isolating "organic search traffic" tracking as **brand demand signals**. 
+
+This framework models web traffic as a lagging indicator to holistic marketing investments and structural funnel health.
 
 The data studio dashboard (https://datastudio.google.com/reporting/136d63ae-6f40-47dd-b484-f32ba8a8b64b) brings many of the insights to life around performance through the lens of user behavior timing.
 
-## 📈 The Core Econometric Philosophy
+## 📈 The Core Econometric Philosophy THE FRAMEWORK 
 It's very much dependant on the business model in most cases organic traffic is very much linked into brand investments. 
 A common mistake in digital analytics is treating organic traffic as a "marketing-free layer" that generates its own customer demand. In reality, search volume behaves as a trailing echo of prior brand investments, offline exposure, and upstream campaign momentum. 
 
