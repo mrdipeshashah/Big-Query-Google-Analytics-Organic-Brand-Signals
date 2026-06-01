@@ -4,11 +4,7 @@ This repository contains Big Query code using Google Analytics raw data isolatin
 The data studio dashboard (https://datastudio.google.com/reporting/136d63ae-6f40-47dd-b484-f32ba8a8b64b) brings many of the insights to life.
 
 ## 📈 The Core Econometric Philosophy THE FRAMEWORK 
-It's very much dependant on the business model in most cases organic traffic is very much linked into brand investments. 
-
-A common mistake in digital analytics is treating organic traffic as a "marketing-free layer" that generates its own customer demand. In reality, search volume behaves as a trailing echo of prior brand investments, offline exposure, and upstream campaign momentum. 
-
-Under this framework it uses, **Organic Website Homepage Traffic** is viewed as the **"Little Brother" of Share of Search (SoS)**. While macro Share of Search tracks the total volume of consumer interest in the open market, homepage organic traffic captures the direct on-site crystallization of that demand. One cannot scale sustainably without the other.
+Under this framework, **Organic Website Homepage Traffic** is viewed as the **"Little Brother" of Share of Search (SoS)**. Share of Search tracks the total volume of consumer interest in the market, homepage organic traffic captures the direct on-site crystallization of that demand. One cannot scale sustainably without the other.
 
 This model isolates three distinct relationship dynamics within this sibling relationship:
 
