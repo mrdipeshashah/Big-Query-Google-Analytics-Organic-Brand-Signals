@@ -3,22 +3,27 @@ This repository contains Big Query code using Google Analytics raw data isolatin
 
 The data studio dashboard (https://datastudio.google.com/reporting/136d63ae-6f40-47dd-b484-f32ba8a8b64b) brings many of the insights to life.
 
-## 📈 The Core Econometric Philosophy THE FRAMEWORK 
+## THE FRAMEWORK 
 Under this framework, **Organic Website Homepage Traffic** is viewed as the **"Little Brother" of Share of Search (SoS)**. Share of Search tracks the total volume of consumer interest in the market, homepage organic traffic captures the direct on-site crystallization of that demand. One cannot scale sustainably without the other.
 
 This model isolates three distinct relationship dynamics within this sibling relationship:
 
-### 1. The Lagged Effect (Trailing Brand Yield)
-In premium e-commerce tiers (£75, £150, and £200 product lines), top-of-funnel marketing campaigns rarely spark day-zero conversions. 
-* **The Cycle:** A high-impact brand campaign runs in **October**, causing an immediate spike in macro Share of Search (SoS) across Google.
-* **The Sibling Lag:** The "big brother" (SoS) peaks immediately, but the "little brother" (Homepage Organic Sessions) remains quiet while users process messaging and evaluate budgets over a 30, 60, or 90-day window.
-* **The Action:** The consumer finally acts in **December**, executing a branded search query that lands directly on your homepage to purchase.
-* **Pipeline Application:** The timeline line charts inside this tracker are configured to pinpoint these offset waves, validating the delayed economic return of brand building.
+### Mini Case Study - The Lagged Effect (Trailing Brand Yield)
+For an e-commerce business when mapping out KPI's and buidling a KPI tree drilled into understanding the impact of brand and **Organic Homepage sessions**. There was a disconnect between brand and 'performance' the first step was building a view of the available data isolating **Organic Homepage Sessions** then added in **Sos** data showing the lag between brand impact and conversion. 
 
-### 2. Pure Correlation (The Rising Tide)
+Neither **SoS** data was being used and isolating **Organic Homepage Sessions** was not being tracked. There was no visiblity of understanding the impact throguh signals. 
+
+For a high AOV e-commerce: blended SOS data with Organic homepage traffic data. top-of-funnel marketing campaigns rarely spark day-zero conversions. 
+* **The Brand Campaign:** A brand campaign runs in **August**, causing an immediate spike in **Share of Search (SoS)**.
+* **The Lag Affect:** The "big brother" **SoS** peaked immediately, but the "little brother" **Homepage Organic Sessions** remained flat when SOS peaked quiet while users process messaging and evaluate budgets over a 30, 60, or 90-day window.
+* **The Action:** 3 months later in **October**, there was an increase in branded search queries in turn increase in **Organic homepage sessions** that drove to purchases.
+
+Understanding correlaton v causation 
+
+### 1. Pure Correlation (The Rising Tide)
 Simultaneous spikes across macro search interest and all on-site landing pages without any chronological delay typically suggest seasonal macro-market forces (e.g., Black Friday anomalies or structural industry-wide shifts) rather than standalone channel optimization success.
 
-### 3. True Causation (Funnel Efficiency Activation)
+### 2. True Causation (Funnel Efficiency Activation)
 Causation is isolated through on-site data ratios. If macro market demand (Share of Search) stays entirely flat, but your on-site `homepage_organic_revenue_share %` scales, you have proven definitive structural causation: market demand didn't shift, but your internal traffic quality or conversion design mechanics successfully improved, allowing the "little brother" to convert more efficiently.
 
 ## 🐛 Core Engineering Patch: Defeating Page Title Brittleness
