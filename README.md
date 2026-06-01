@@ -7,14 +7,14 @@ The data studio dashboard (https://datastudio.google.com/reporting/136d63ae-6f40
 Under this framework, **Organic Website Homepage Traffic** is viewed as the **"Little Brother" of Share of Search (SoS)**. Share of Search tracks the total volume of consumer interest in the market, homepage organic traffic captures the direct on-site crystallization of that demand. One cannot scale sustainably without the other.
 
 ### Mini Case Study - The Lagged Effect
-For an e-commerce business mapping out KPI's and get deep into the data to understand the business. Developed a KPI tree and drilled into understanding the impact of brand and **Organic Homepage sessions**. There was a disconnect between brand and 'performance' the first step was building a view of the available data in isolating **Organic Homepage Sessions** then added in **Sos** data showing the lag between brand impact and traffic / conversion.
+For an e-commerce business mapping out KPI's and getting deep into the data to understand the business. Developed a KPI tree and drilled into understanding the impact of brand and **Organic Homepage sessions**. There was a disconnect between brand and 'performance' the first step was building a view of the available data in isolating **Organic Homepage Sessions** then added in **Sos** data showing the lag between brand impact with **Sos** and traffic / conversion.
 
 **SoS** data or **Organic Homepage Sessions** were not being tracked. There was a brand tracker in place.  
 
 For a high AOV e-commerce: 
 * **The Brand Campaign:** A brand campaign runs in **August**, causing an immediate spike in **Share of Search (SoS)**.
-* **The Lag Affect:** The "big brother" **SoS** peaked immediately, but the "little brother" **Homepage Organic Sessions** remained flat when SOS peaked quiet while users process messaging and evaluate budgets over a 30, 60, or 90-day window.
-* **The Action:** 8 to 10 weeks later in **October**, there was an increase in branded search queries in turn increase in **Organic homepage sessions** that drove to purchases.
+* **The Lag Affect:** The "big brother" **SoS** peaked immediately, but the "little brother" **Homepage Organic Sessions** remained flat
+* **The Action:** 8 to 10 weeks later in **October**, there was an increase in **Organic homepage sessions** that drove to purchases.
 
 ### Understanding correlaton v causation 
 
@@ -24,7 +24,7 @@ Simultaneous spikes across macro search interest and on-site landing pages witho
 ### 2. Causation
 Causation is isolated through on-site data ratios. If macro market demand (Share of Search) stays entirely flat, but your on-site `homepage_organic_revenue_share %` scales, you have proven definitive structural causation: market demand didn't shift, but your internal traffic quality or conversion design mechanics successfully improved, allowing the "little brother" to convert more efficiently.
 
-## 🐛 Core Engineering Patch: Defeating Page Title Brittleness
+## IDENTIFYING KEY PAGES AND BUILDING THE LOGIC IN THE CODE
 
 ### Context & Structural Bug
 When isolating **Escalation & Operational Friction Hubs** (e.g., Contact, Help, Support, and Refund interfaces) to calculate baseline revenue leakage, the data engine originally evaluated the cosmetic metadata variable: `sb.landing_page_title`.
@@ -35,6 +35,9 @@ During automated staging operations, mock search engine traffic directed to the 
 While the network **URL path** explicitly contained the string `/contact/`, the underlying content management system rendered the page title dynamically as `"Working Together - Dipesh Shah Photography"`. Because the string `"Working Together"` lacked the structural keyword `"contact"`, the regex filter dropped the match and incorrectly misrouted the session data to the fallback `ELSE 0` statement.
 
 ### The Operational Solution
+
+
+
 Relying on cosmetic browser titles introduces severe code vulnerability. If a content team updates a title for an SEO optimization experiment (e.g., swapping a "Contact Us" tab title to "Get In Touch" or "Working Together"), it instantly and silently breaks downstream financial models and automated reporting logic.
 
 The transformation rules were entirely refactored to evaluate the immutable structural network path string (**`sb.landing_page`** / **`page_location`**) rather than the transient editorial title string. 
