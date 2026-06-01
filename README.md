@@ -35,7 +35,7 @@ During automated staging operations, mock search engine traffic directed to the 
 While the network **URL path** explicitly contained the string `/contact/`, the underlying content management system rendered the page title dynamically as `"Working Together - Dipesh Shah Photography"`. Because the string `"Working Together"` lacked the structural keyword `"contact"`, the regex filter dropped the match and incorrectly misrouted the session data to the fallback `ELSE 0` statement.
 
 ### The Operational Solution
-
+To be able to track 
 
 
 Relying on cosmetic browser titles introduces severe code vulnerability. If a content team updates a title for an SEO optimization experiment (e.g., swapping a "Contact Us" tab title to "Get In Touch" or "Working Together"), it instantly and silently breaks downstream financial models and automated reporting logic.
