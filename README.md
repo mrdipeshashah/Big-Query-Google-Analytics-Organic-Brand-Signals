@@ -34,23 +34,23 @@ Causation is isolated through on-site conversion rate. If market demand (Share o
 ## IDENTIFYING KEY PAGES AND BUILDING THE LOGIC IN THE CODE
 
 ### The Operational Solution
-The key identifer to be able to track **Organic sessions** is the Landing Page Title (sb.landing_page_title) in the Google Analytics Big Query schema. If two pages or more have the same pagge title even if they have different URL's it will break the logic. The Landing Page Title has to be unique 
+The key identifer to be able to track **Organic sessions** is the Landing Page Title (sb.landing_page_title) in the Google Analytics Big Query schema. If two pages or more have the same page title even if they have different URL's it will break the logic. The Landing Page Title has to be unique. 
 
-For example there may be 2 homepages which are being A/B tested - if both homepages **sb.landing_page_title = Homepage** then the logic in the code will pick them both. If they need to be split then the landing page needs to be as follows: **sb.landing_page_title=Homepage** and **sb.landing_page_title=Home**
+For example there may be 2 homepages which are being A/B tested - if both homepages **sb.landing_page_title = Homepage** the logic in the code will pick them both. The landing page needs to be as follows: **sb.landing_page_title=Homepage** and **sb.landing_page_title=Home**
 
-To get around handling messy, unpredictable URL extensions and query strings, using **sb.landing_page_title = 'Homepage'** is the saffest bet. No matter how messy the URL query string gets with ads, campaigns, or tracking tokens, the browser tab title stays exactly the same. It acts as a clean, unified bucket that catches 100% of homepage variations in one line of code.
+To get around handling messy, unpredictable URL extensions and query strings, using **sb.landing_page_title** is the saffest bet. No matter how messy the URL query string gets with ads, campaigns, or tracking UTM's, the title stays exactly the same. It acts as a clean, unified bucket that catches 100% of homepage variations in one line of code.
 
 ## Strategic Page Grouping Architecture & Funnel Tension
 
 To extract actionable brand signals from raw clickstream data, this pipeline splits incoming traffic paths into three distinct structural page groups. This architecture relies on a fundamental concept of **funnel tension**: a direct commercial tug-of-war between high-intent conversion pages and operational troubleshooting hubs.
 
-When system friction increases, user behavior shifts away from commercial targets. Instead of landing on the homepage to explore product lines, users turn to Google, ChatGPT, or Perplexity to find bypass routes (e.g., searching specifically for a hidden login button, an unlisted support email, or an about page to verify company legitimacy). 
+When system friction increases, user behavior shifts away from commercial targets. Instead of landing on the homepage to explore product lines, users turn to Google or ChatGPT etc, to bypass routes (e.g., searching specifically for a hidden login button, an unlisted support email, or an about page to verify company legitimacy). 
 
 ### The Three Tension Pillars
 
 #### 1. The Intent Engine: Homepage Organic Traffic (`homepage_organic_...`)
 * **Strategic Role:** The primary collector of pure brand demand signals and user velocity. 
-* **Business Impact:** This acts as the direct transactional gateway for premium product catalogs across your **£75, £150, and £200 price tiers**. Higher volume here indicates clean, frictionless consumer intent.
+* **Business Impact:** This acts as the direct transactional gateway for premium product catalogs. Higher volume indicates clean, frictionless consumer intent.
 
 #### 2. The Consideration Layer: About & Content Pages (`about_organic_...`)
 * **Strategic Role:** Captures mid-funnel users researching brand authority and legitimacy.
