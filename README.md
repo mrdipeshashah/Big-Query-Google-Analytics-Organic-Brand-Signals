@@ -33,25 +33,37 @@ For example there may be 2 homepages which are being A/B tested - if both homepa
 
 To get around handling messy, unpredictable URL extensions and query strings, using **sb.landing_page_title = 'Homepage'** is the saffest bet. No matter how messy the URL query string gets with ads, campaigns, or tracking tokens, the browser tab title stays exactly the same. It acts as a clean, unified bucket that catches 100% of homepage variations in one line of code.
 
-## 🗂️ Strategic Page Grouping Architecture & Commercial Impact
+## Strategic Page Grouping Architecture & Funnel Tension
 
-To extract actionable brand signals from a giant lake of unrefined organic traffic, this pipeline dynamically splits incoming traffic paths into three distinct structural page groups. Each group maps to a specific stage of customer intent and carries a measurable financial consequence:
+To extract actionable brand signals from raw clickstream data, this pipeline splits incoming traffic paths into three distinct structural page groups. This architecture relies on a fundamental concept of **funnel tension**: a direct commercial tug-of-war between high-intent conversion pages and operational troubleshooting hubs.
 
-## 🛠️ Data Infrastructure & Base Schema Mapping
+When system friction increases, user behavior shifts away from commercial targets. Instead of landing on the homepage to explore product lines, users turn to Google, ChatGPT, or Perplexity to find bypass routes (e.g., searching specifically for a hidden login button, an unlisted support email, or an about page to verify company legitimacy). 
 
-This pipeline is built to read a structured schema from BigQuery. The data payload contains core volume fields alongside broken-down search parameters across various index search vectors:
+### The Three Tension Pillars
 
-### 1. The Intent Engine: Homepage Organic Traffic (`homepage_organic_...`)
-* **Strategic Role:** Acts as the primary collector of clear brand signals. When users type the exact company name or specific unique brand offerings into a search engine, they are routed here. 
-* **Business Impact:** This group tracks high-velocity, high-intent traffic. It acts as the direct activation layer for premium product catalogs across your **£75, £150, and £200 price points**. A rising trend line in this group indicates strong brand health and directly correlates with expanding overall conversion rates.
+#### 1. The Intent Engine: Homepage Organic Traffic (`homepage_organic_...`)
+* **Strategic Role:** The primary collector of pure brand demand signals and user velocity. 
+* **Business Impact:** This acts as the direct transactional gateway for premium product catalogs across your **£75, £150, and £200 price tiers**. Higher volume here indicates clean, frictionless consumer intent.
 
-### 2. The Consideration Layer: About & Brand Content Pages (`about_organic_...`)
-* **Strategic Role:** Captures mid-funnel researchers and prospects who are familiar with the brand but are evaluating authority, values, or editorial content before jumping into a transactional funnel.
-* **Business Impact:** This layer acts as a pipeline predictor. Spikes in this bucket typically yield lagged conversions in subsequent weeks as users move from education to intent.
+#### 2. The Consideration Layer: About & Content Pages (`about_organic_...`)
+* **Strategic Role:** Captures mid-funnel users researching brand authority and legitimacy.
+* **Business Impact:** While essential for building long-term trust, an unexpected spike in users landing directly here via search can indicate that your primary acquisition journey is confusing, forcing users to manually investigate who you are before buying.
 
-### 3. The Friction Node: Escalation & Login Hubs (`escalation_total_sessions`)
-* **Strategic Role:** Aggregates entry traffic hitting customer support portals, help docs, contact setups, and structural account logins.
-* **Business Impact:** This is your **revenue leakage metric**. While some login traffic is standard operational behavior, massive spikes in this bucket uncover hidden systemic blockages. 
+#### 3. The Friction Node: Escalation & Login Hubs (`escalation_total_sessions`)
+* **Strategic Role:** Aggregates entries directly onto account portals, contact forms, help docs, and support centers.
+* **Business Impact:** This represents your **revenue drainage metric**. High traffic share here proves that users are utilizing search engines as a diagnostic tool to fix broken experiences. When this bucket balloons, it introduces negative friction that starves the homepage intent engine and suppresses conversion rates.
+
+---
+
+### 💡 Framework Customization: Identifying Your Brand's Funnel Tension
+
+Every business operates under unique technical frameworks, meaning "friction" will look different depending on your tech stack. To customize this pipeline, analytics teams must audit their specific ecosystem to identify which pages are pulling users away from the conversion track:
+
+* **SaaS/Subscription Models:** Focus heavily on isolating the main authentication gateways (`/login`, `/signin`, `/reset-password`). High search volume targeting these keywords implies app authentication loops or broken session cookies.
+* **E-Commerce/Retail Engines:** Map out customer service escalations (`/contact-us`, `/returns-refunds`, `/shipping-tracking`). If organic entries jump on these pages, users are likely hunting down delayed packages or struggling to update cart parameters.
+* **Lead Generation Platforms:** Monitor structural operational assets (`/help/`, `/faq/`, `/support/`). 
+
+By defining these custom nodes in your SQL case statements, you can clearly track the tension balance on your Looker Studio dashboard. If the homepage share drops while your custom escalation nodes climb, the data provides an immediate, early warning signal that system friction is actively damaging revenue.
 
 ---
 
