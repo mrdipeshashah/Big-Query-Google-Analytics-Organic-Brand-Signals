@@ -22,7 +22,7 @@ For a high AOV e-commerce:
 Simultaneous spikes across macro search interest and on-site landing pages without any chronological delay typically suggest seasonal macro-market forces (e.g., Black Friday anomalies or structural industry-wide shifts) rather than standalone channel optimization success.
 
 ### 2. Causation
-Causation is isolated through on-site data ratios. If macro market demand (Share of Search) stays entirely flat, but your on-site `homepage_organic_revenue_share %` scales, you have proven definitive structural causation: market demand didn't shift, but your internal traffic quality or conversion design mechanics successfully improved, allowing the "little brother" to convert more efficiently.
+Causation is isolated through on-site conversion rate. If market demand (Share of Search) stays entirely flat, but your on-site `homepage_organic_revenue_share %` scales, you have proven definitive causation as market demand didn't shift, but your internal traffic quality or conversion design mechanics successfully improved, allowing the "little brother" to convert more efficiently.
 
 ## IDENTIFYING KEY PAGES AND BUILDING THE LOGIC IN THE CODE
 
