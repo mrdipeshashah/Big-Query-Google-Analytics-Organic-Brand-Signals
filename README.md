@@ -16,6 +16,10 @@ For a high AOV e-commerce:
 * **The Lag Affect:** The "big brother" **SoS** peaked immediately, but the "little brother" **Homepage Organic Sessions** remained flat
 * **The Action:** 8 to 10 weeks later in **October**, there was an increase in **Organic homepage sessions** that drove to purchases.
 
+<img width="1002" height="490" alt="image" src="https://github.com/user-attachments/assets/244da0c3-d14c-48c7-8252-399babf53e25" />
+
+
+
 ### Understanding correlaton v causation 
 
 ### 1. Correlation
