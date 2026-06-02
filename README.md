@@ -31,6 +31,8 @@ The key identifer to be able to track **Organic sessions** is the Landing Page T
 
 For example there may be 2 homepages which are being A/B tested - if both homepages **sb.landing_page_title = Homepage** then the logic in the code will pick them both. If they need to be split then the landing page needs to be as follows: **sb.landing_page_title=Homepage** and **sb.landing_page_title=Home**
 
+To get around handling messy, unpredictable URL extensions and query strings, using **sb.landing_page_title = 'Homepage'** is the saffest bet. No matter how messy the URL query string gets with ads, campaigns, or tracking tokens, the browser tab title stays exactly the same. It acts as a clean, unified bucket that catches 100% of homepage variations in one line of code.
+
 ## 🗂️ Strategic Page Grouping Architecture & Commercial Impact
 
 To extract actionable brand signals from a giant lake of unrefined organic traffic, this pipeline dynamically splits incoming traffic paths into three distinct structural page groups. Each group maps to a specific stage of customer intent and carries a measurable financial consequence:
