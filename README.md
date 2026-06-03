@@ -1,7 +1,7 @@
 # OVERVIEW
 This repository contains Big Query code using Google Analytics raw data isolating "organic search traffic" as a lagging indicator to holistic marketing brand investments and **brand demand signals**. 
 
-The data studio dashboard (https://datastudio.google.com/reporting/136d63ae-6f40-47dd-b484-f32ba8a8b64b) brings many of the insights to life.
+The data studio dashboard (https://datastudio.google.com/reporting/927c359c-21a7-4635-b33f-50ff30a39afd) brings many of the insights to life.
 
 ## THE FRAMEWORK 
 Under this framework, **Organic Website Homepage Traffic** is viewed as the **"Little Brother" of Share of Search (SoS)**. Share of Search tracks the total volume of consumer interest in the market, homepage organic traffic captures the direct on-site crystallization of that demand. One cannot scale sustainably without the other.
