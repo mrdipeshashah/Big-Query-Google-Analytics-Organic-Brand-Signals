@@ -1,0 +1,95 @@
+WITH session_base AS (
+  SELECT
+    -- Unique Session ID combo
+    CONCAT(user_pseudo_id, '-', (SELECT value.int_value FROM UNNEST(event_params) WHERE key = 'ga_session_id')) AS session_id,
+    
+    -- Date truncated to the start of the week on Monday
+    DATE_TRUNC(EXTRACT(DATE FROM TIMESTAMP_MICROS(event_timestamp)), WEEK(MONDAY)) AS week_start_monday,
+    
+    -- Using the dedicated collected_traffic_source record struct
+    collected_traffic_source.manual_source AS source,
+    collected_traffic_source.manual_medium AS medium,
+    
+    -- Raw event details needed for sorting/extracting parameters
+    event_name,
+    event_timestamp,
+    event_params
+  FROM
+    `your-project-id.analytics_xxxxxxxxx.events_*` -- Replace with your project and dataset ID
+  WHERE
+    _TABLE_SUFFIX BETWEEN '20240101' AND '20260630' -- Adjust date ranges as needed
+),
+
+landing_pages AS (
+  SELECT
+    session_id,
+    week_start_monday,
+    
+    -- Cleaned traffic source fallback values
+    COALESCE(source, '(direct)') AS source,
+    COALESCE(medium, '(none)') AS medium,
+    
+    -- Cleaned Landing Page Details (URL and Title)
+    REGEXP_REPLACE(
+      (SELECT value.string_value FROM UNNEST(event_params) WHERE key = 'page_location'), 
+      r'\?.*$', 
+      ''
+    ) AS landing_page_url,
+    (SELECT value.string_value FROM UNNEST(event_params) WHERE key = 'page_title') AS landing_page_title,
+    
+    -- Isolates the very first page_view event of the session to define the landing page
+    ROW_NUMBER() OVER (
+      PARTITION BY session_id 
+      ORDER BY event_timestamp ASC
+    ) AS event_rank
+  FROM
+    session_base
+  WHERE
+    event_name = 'page_view'
+),
+
+session_conversions AS (
+  SELECT
+    session_id,
+    -- Count the purchases in this session
+    COUNT(IF(event_name = 'purchase', 1, NULL)) AS session_purchases,
+    
+    -- Fallback strategy for revenue parameter extraction
+    SUM(IF(event_name = 'purchase', 
+      COALESCE(
+        (SELECT value.double_value FROM UNNEST(event_params) WHERE key = 'value'),
+        (SELECT value.int_value FROM UNNEST(event_params) WHERE key = 'value'),
+        (SELECT value.double_value FROM UNNEST(event_params) WHERE key = 'price'),
+        0
+      ), 0)) AS session_revenue
+  FROM
+    session_base
+  GROUP BY
+    session_id
+)
+
+SELECT
+  lp.week_start_monday,
+  lp.source,
+  lp.medium,
+  -- Combined column for clean quick-filtering/pivots
+  CONCAT(lp.source, ' / ', lp.medium) AS source_medium,
+  lp.landing_page_url,
+  lp.landing_page_title,
+  
+  -- Metrics Aggregations
+  COUNT(DISTINCT lp.session_id) AS sessions,
+  SUM(COALESCE(sc.session_purchases, 0)) AS purchases,
+  ROUND(SUM(COALESCE(sc.session_revenue, 0)), 2) AS revenue
+
+FROM
+  landing_pages lp
+LEFT JOIN
+  session_conversions sc ON lp.session_id = sc.session_id
+WHERE
+  lp.event_rank = 1 -- Keep only the landing page mapping row
+GROUP BY
+  1, 2, 3, 4, 5, 6
+ORDER BY
+  week_start_monday DESC,
+  sessions DESC;
