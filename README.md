@@ -64,13 +64,13 @@ When system friction increases, user behavior shifts away from commercial target
 
 ### 💡 Framework Customization: Identifying Your Brand's Funnel Tension
 
-Every business operates under unique technical frameworks, meaning "friction" will look different depending on your tech stack. To customize this pipeline, analytics teams must audit their specific ecosystem to identify which pages are pulling users away from the conversion track:
+Every business operates under unique technical frameworks, analytics teams must audit their specific ecosystem to identify which pages are pulling users away from the conversion track:
 
 * **SaaS/Subscription Models:** Focus heavily on isolating the main authentication gateways (`/login`, `/signin`, `/reset-password`). High search volume targeting these keywords implies app authentication loops or broken session cookies.
 * **E-Commerce/Retail Engines:** Map out customer service escalations (`/contact-us`, `/returns-refunds`, `/shipping-tracking`). If organic entries jump on these pages, users are likely hunting down delayed packages or struggling to update cart parameters.
 * **Lead Generation Platforms:** Monitor structural operational assets (`/help/`, `/faq/`, `/support/`). 
 
-By defining these custom nodes in your SQL case statements, you can clearly track the tension balance on your Looker Studio dashboard. If the homepage share drops while your custom escalation nodes climb, the data provides an immediate, early warning signal that system friction is actively damaging revenue.
+By defining these custom nodes in your SQL case statements, you can clearly track the tension balance in the Data Studio dashboard. If homepage share drops while your custom escalation nodes climb, the data provides an immediate, early warning signal that system friction is actively damaging revenue.
 
 ---
 
