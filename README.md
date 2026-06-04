@@ -18,7 +18,7 @@ For a high AOV e-commerce business:
 
 <img width="1002" height="490" alt="image" src="https://github.com/user-attachments/assets/244da0c3-d14c-48c7-8252-399babf53e25" />
 
-If both **Sos** and **Organic Homepage Sessions** were being regularly tracked it would be able to pick up on 
+If both **Sos** and **Organic Homepage Sessions** were being regularly tracked it would be able to pick up on: 
 
 1. The increase in brand searches / brand lift (**Sos**) from August 2023 and the baseline increasing in the following months 
 2. The causation affect on **Organic Homepage Sessions** from October 2023 and the baseline increasing in the following months 
