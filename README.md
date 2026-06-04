@@ -93,7 +93,24 @@ By segmenting your data into these three pillars, the dashboard exposes clear co
 
 > 💡 **Implementation Note:** This dashboard template provides a "90% copy-and-go" baseline framework. Because page title arrays, subfolder structures, and platform parameters vary widely across e-commerce tech stacks, the implementing analytics engineer must finalize the last 10% configuration by manually auditing and updating the explicit `LIKE` string definitions (Lines 100-135) to match their live network nodes.
 
----
+# Contextual Nuance & Interpretation Checklist
+
+This dashboard serves as a tool for **Anomaly Detection and Trend Analysis**. Because data models are behavioral frameworks rather than absolute physics, these charts must be interpreted alongside broader cross-channel marketing and operational contexts. 
+
+Use this checklist when evaluating major shifts or spikes in the data view:
+
+### 1. The Cross-Channel Spillover Caveat
+* **Paid Media / Email Alignment:** If aggressive paid media (Google Brand Ads, Meta Ads) or mass email marketing campaigns are directed straight to the homepage, this view loses its isolated "organic purity."
+* **The Halo Effect:** A heavy paid or email push naturally drives a large percentage of users to open a new tab and search for the brand name organically. A massive spike on this dashboard may indicate cross-channel acquisition success rather than a sudden, isolated organic SEO flywheel.
+
+### 2. The Operational Anomaly Caveat (The "PR Typo" Dynamics)
+* **High-Revenue Utility Spikes:** A sudden surge in traffic to an escalation, registration, or login page is not automatically a sign of a broken journey. 
+* **The Behind-the-Scenes Reality:** This shift can be caused by positive anomalies, such as a viral PR campaign, an offline event featuring a misspelled vanity URL, or a massive product drop requiring rapid account creation. 
+* **Rule of Thumb:** The stacked bar chart flags *where* the structural shift happened; human data exploration is required to diagnose *why*.
+
+### 3. The Business Model & Lifecycle Adjuster
+* **Audience Composition Nuance:** The baseline ratio between **Homepage Traffic** and **Tension Pages** is entirely unique to a brand's current lifecycle maturity.
+* **The Scale Shift:** A young, scaling DTC brand should expect an organic footprint heavily dominated by the homepage. A mature enterprise with a massive base of hundreds of thousands of legacy subscribers will naturally see a higher, permanent baseline of tension from utility login pages—and that is completely healthy.
 
 ## 📊 Dashboard Visualizations & Looker Studio Sort Patch
 
