@@ -40,7 +40,7 @@ For example there may be 2 homepages which are being A/B tested - if both homepa
 
 To get around handling messy, unpredictable URL extensions and query strings, using **sb.landing_page_title** is the saffest bet. No matter how messy the URL query string gets with ads, campaigns, or tracking UTM's, the title stays exactly the same. It acts as a clean, unified bucket that catches 100% of homepage variations in one line of code.
 
-## Strategic Page Grouping Architecture & Funnel Tension
+## STRATEGIC PAGE GROUPING ARCHITECTURE & FUNNEL TENSION
 
 To extract actionable brand signals from raw clickstream data, this pipeline splits incoming traffic paths into three distinct structural page groups. This architecture relies on a fundamental concept of **funnel tension**: a direct commercial tug-of-war between high-intent conversion pages and operational troubleshooting hubs.
 
@@ -62,7 +62,7 @@ When system friction increases, user behavior shifts away from commercial target
 
 ---
 
-### 💡 Framework Customization: Identifying Your Brand's Funnel Tension
+### FRAMEWRO TO IDENTIFYING BRANDS FUNNEL TENSION
 
 Every business operates under unique technical frameworks, analytics teams must audit their specific ecosystem to identify which pages are pulling users away from the conversion track:
 
@@ -74,7 +74,7 @@ By defining these custom nodes in your SQL case statements, you can clearly trac
 
 ---
 
-### 📉 Quantifying the Business Impact: Correlation vs. Causation Matrix
+### QUANTIFYING THE BUSINESS IMPACT: CORRELAITON V CAUSATION 
 
 By segmenting your data into these three pillars, the dashboard exposes clear commercial trade-offs across the tracking timeline:
 
