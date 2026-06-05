@@ -94,11 +94,11 @@ By segmenting your data into these three pillars, the dashboard exposes clear co
 
 > 💡 **Implementation Note:** This dashboard template provides a "90% copy-and-go" baseline framework. Because page title arrays, subfolder structures, and platform parameters vary widely across e-commerce tech stacks, the implementing analytics engineer must finalize the last 10% configuration by manually auditing and updating the explicit `LIKE` string definitions (Lines 100-135) to match their live network nodes.
 
-# Contextual Nuance & Interpretation Checklist
+# CONTEXTUAL NUANCE & CHECKLIST 
 
-This dashboard serves as a tool for **Anomaly Detection and Trend Analysis**. Because data models are behavioral frameworks rather than absolute physics, these charts must be interpreted alongside broader cross-channel marketing and operational contexts. 
+This dashboard is built for for **Anomaly Detection and Trend Analysis**. The data models are behavioral frameworks rather than absolute physics, these charts must be interpreted alongside broader cross-channel marketing and operational contexts. 
 
-Use this checklist when evaluating major shifts or spikes in the data view:
+The 3 step checklist when evaluating major shifts or spikes in the data view:
 
 ### 1. The Cross-Channel Spillover Caveat
 * **Paid Media / Email Alignment:** If aggressive paid media (Google Brand Ads, Meta Ads) or mass email marketing campaigns are directed straight to the homepage, this view loses its isolated "organic purity."
