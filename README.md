@@ -130,6 +130,6 @@ CASE
   WHEN month_year = 'Mar-2026' THEN 27
   WHEN month_year = 'Apr-2026' THEN 28
   WHEN month_year = 'May-2026' THEN 29
-  WHEN month_year = 'Jun-2025' THEN 30
+  WHEN month_year = 'Jun-2026' THEN 30
   ELSE 99
 END
