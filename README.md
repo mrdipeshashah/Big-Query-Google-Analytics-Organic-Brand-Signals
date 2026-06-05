@@ -102,20 +102,20 @@ The 3 step checklist when evaluating major shifts or spikes in the data view:
 
 ### 1. The Cross-Channel Spillover Caveat
 * **Paid Media / Email Alignment:** If aggressive paid media (Google Brand Ads, Meta Ads) or mass email marketing campaigns are directed straight to the homepage, this view loses its isolated "organic purity."
-* **The Halo Effect:** A heavy paid or email push naturally drives a large percentage of users to open a new tab and search for the brand name organically. A massive spike on this dashboard may indicate cross-channel acquisition success rather than a sudden, isolated organic SEO flywheel.
+* **The Halo Effect:** A heavy paid or email push naturally drives a large percentage of users to the homepage will make it harder to isolate the organic brand flywheel.
 
 ### 2. The Operational Anomaly Caveat (The "PR Typo" Dynamics)
 * **High-Revenue Utility Spikes:** A sudden surge in traffic to an escalation, registration, or login page is not automatically a sign of a broken journey. 
-* **The Behind-the-Scenes Reality:** This shift can be caused by positive anomalies, such as a viral PR campaign, an offline event featuring a misspelled vanity URL, or a massive product drop requiring rapid account creation. 
+* **The Behind-the-Scenes Reality:** This shift can be caused by positive anomalies, such as a viral PR campaign an offline event featuring a misspelled vanity URL, or a massive product drop requiring rapid account creation. 
 * **Rule of Thumb:** The stacked bar chart flags *where* the structural shift happened; human data exploration is required to diagnose *why*.
 
 ### 3. The Business Model & Lifecycle Adjuster
 * **Audience Composition Nuance:** The baseline ratio between **Homepage Traffic** and **Tension Pages** is entirely unique to a brand's current lifecycle maturity.
-* **The Scale Shift:** A young, scaling DTC brand should expect an organic footprint heavily dominated by the homepage. A mature enterprise with a massive base of hundreds of thousands of legacy subscribers will naturally see a higher, permanent baseline of tension from utility login pages—and that is completely healthy.
+* **The Scale Shift:** A young, scaling DTC brand should expect an organic footprint heavily dominated by the homepage. A mature subscription brand with a bigger base of subscribers will naturally see a higher, permanent baseline of tension from utility login pages—and that is completely healthy.
 
-## 📊 Dashboard Visualizations & Looker Studio Sort Patch
+# DATE SORTING IN DATA STUDIO 
 
-When passing text strings like `Jan-2024` or `Feb-2025` into a visualization front-end, Looker Studio defaults to sorting alphabetical characters (grouping all `Apr` months together, then all `Aug` months), breaking the multi-year timeline sequence.
+When passing text strings like `Jan-2024`,`Feb-2025` Data Studio defaults to sorting alphabetical characters (grouping all `Apr` months together, then all `Aug` months), breaking the multi-year timeline sequence.
 
 ### The Fix
 To force clean chronological bar graph arrays without modifying your backend BigQuery storage layer tables, add a custom calculated field directly within your individual chart components named **`Month-Year Order`** using the explicit formula block below:
@@ -151,5 +151,6 @@ CASE
   WHEN month_year = 'Mar-2026' THEN 27
   WHEN month_year = 'Apr-2026' THEN 28
   WHEN month_year = 'May-2026' THEN 29
+  WHEN month_year = 'Jun-2025' THEN 30
   ELSE 99
 END
