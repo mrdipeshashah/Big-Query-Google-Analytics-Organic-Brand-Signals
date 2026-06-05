@@ -15,7 +15,7 @@ WITH session_base AS (
     event_timestamp,
     event_params
   FROM
-    `your-project-id.analytics_xxxxxxxxx.events_*` -- Replace with your project and dataset ID
+    `enter.tablename_123456.events_*`-- Replace with your project and dataset ID
   WHERE
     _TABLE_SUFFIX BETWEEN '20240101' AND '20260630' -- Adjust date ranges as needed
 ),
