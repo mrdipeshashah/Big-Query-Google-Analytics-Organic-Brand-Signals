@@ -11,7 +11,7 @@ WITH global_session_first_touch AS (
     MAX(CASE WHEN (SELECT value.int_value FROM UNNEST(event_params) WHERE key = 'entrances') = 1 
              THEN LOWER(collected_traffic_source.manual_medium) 
         END) AS landing_medium
-  FROM `mrdipeshashah.analytics_343520795.events_*`
+  FROM `enter.tablename_123456.events_*`
   WHERE _TABLE_SUFFIX >= '20250101'
   GROUP BY unique_session_id, event_date
 ),
@@ -32,7 +32,7 @@ session_conversions AS (
     CONCAT((SELECT value.int_value FROM UNNEST(event_params) WHERE key = 'ga_session_id'), user_pseudo_id) AS unique_session_id,
     COUNT(CASE WHEN event_name = 'purchase' THEN 1 END) AS session_purchases,
     SUM(CASE WHEN event_name = 'purchase' THEN COALESCE(event_value_in_usd, 0) END) AS session_revenue
-  FROM `mrdipeshashah.analytics_343520795.events_*`
+  FROM `enter.tablename_123456.events_*`
   WHERE _TABLE_SUFFIX >= '20250101'
   GROUP BY unique_session_id
 )
