@@ -73,27 +73,6 @@ Every business operates under unique technical frameworks, analytics teams must 
 
 By defining these custom nodes in your SQL case statements, you can clearly track the tension balance in the Data Studio dashboard. If homepage share drops while your custom escalation nodes climb, the data provides an immediate, early warning signal that system friction is actively damaging revenue.
 
----
-
-### QUANTIFYING THE BUSINESS IMPACT: CORRELAITON V CAUSATION 
-
-By segmenting your data into these three pillars, the dashboard exposes clear commercial trade-offs across the tracking timeline:
-
-* **The 2024 Friction Phase (High Leakage):** The charts will illustrate periods where the **Escalation & Login Hub share climbs above 35%** of organic entry distribution. Because users are trapped resolving operational tasks or authentication errors, attention is drawn away from commercial product tiers. The dataset captures this drag clearly: as escalation share balloons, overall site revenue flattens and Average Order Value (AOV) drops toward the baseline entry tier (£75).
-* **The 2025–2026 Optimization Phase (Funnel Velocity):** The exact historical month the structural login/escalation bottlenecks are cleared, traffic share shifts dramatically back to the **Homepage Intent Engine (scaling past 40%)**. With friction removed, high-intent brand traffic flows smoothly into checkout funnels, causing total conversion rates to jump to **4.2%** and unlocking standard sales across the higher **£150 and £200 e-commerce product brackets**.
-
-| Field Name | Type | Description |
-| :--- | :--- | :--- |
-| `date` | DATE | Core chronological tracking anchor |
-| `month_year` | STRING | Text format month label (Format: `Jan-2024`) |
-| `total_site_sessions` | INTEGER | High-level overall site entry traffic volume |
-| `total_site_revenue` | FLOAT | Combined gross site revenue metrics |
-| `homepage_organic_google_sessions` | INTEGER | Main organic brand demand volume driver |
-| `homepage_organic_google_revenue` | FLOAT | Core conversion performance for £75, £150, £200 product categories |
-| `escalation_total_sessions` | INTEGER | Combined volume tracking across friction/login nodes |
-
-> 💡 **Implementation Note:** This dashboard template provides a "90% copy-and-go" baseline framework. Because page title arrays, subfolder structures, and platform parameters vary widely across e-commerce tech stacks, the implementing analytics engineer must finalize the last 10% configuration by manually auditing and updating the explicit `LIKE` string definitions (Lines 100-135) to match their live network nodes.
-
 # CONTEXTUAL NUANCE & CHECKLIST 
 
 This dashboard is built for for **Anomaly Detection and Trend Analysis**. The data models are behavioral frameworks rather than absolute physics, these charts must be interpreted alongside broader cross-channel marketing and operational contexts. 
