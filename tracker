@@ -56,33 +56,33 @@ SELECT
   -------------------------------------------------------------------------
   -- Google Organic
   COUNT(DISTINCT CASE WHEN sb.landing_page_title = 'Home - Dipesh Shah Photography' AND sb.source = 'google' AND sb.medium = 'organic' THEN sb.unique_session_id END) AS homepage_organic_google_sessions,
-  SUM(CASE WHEN sb.landing_page_title = 'Home - Dipesh Shah Photography' AND sb.source = 'google' AND sb.medium = 'organic' THEN COALESCE(sc.session_purchases, 0) ELSE 0 END) AS homepage_organic_google_purchases,
-  SUM(CASE WHEN sb.landing_page_title = 'Home - Dipesh Shah Photography' AND sb.source = 'google' AND sb.medium = 'organic' THEN COALESCE(sc.session_revenue, 0) ELSE 0 END) AS homepage_organic_google_revenue,
+  SUM(CASE WHEN sb.landing_page_title = 'Home - Homepage' AND sb.source = 'google' AND sb.medium = 'organic' THEN COALESCE(sc.session_purchases, 0) ELSE 0 END) AS homepage_organic_google_purchases,
+  SUM(CASE WHEN sb.landing_page_title = 'Home - Homepage' AND sb.source = 'google' AND sb.medium = 'organic' THEN COALESCE(sc.session_revenue, 0) ELSE 0 END) AS homepage_organic_google_revenue,
 
   -- Bing Organic
-  COUNT(DISTINCT CASE WHEN sb.landing_page_title = 'Home - Dipesh Shah Photography' AND sb.source = 'bing' AND sb.medium = 'organic' THEN sb.unique_session_id END) AS homepage_organic_bing_sessions,
-  SUM(CASE WHEN sb.landing_page_title = 'Home - Dipesh Shah Photography' AND sb.source = 'bing' AND sb.medium = 'organic' THEN COALESCE(sc.session_purchases, 0) ELSE 0 END) AS homepage_organic_bing_purchases,
-  SUM(CASE WHEN sb.landing_page_title = 'Home - Dipesh Shah Photography' AND sb.source = 'bing' AND sb.medium = 'organic' THEN COALESCE(sc.session_revenue, 0) ELSE 0 END) AS homepage_organic_bing_revenue,
+  COUNT(DISTINCT CASE WHEN sb.landing_page_title = 'Home - Homepage' AND sb.source = 'bing' AND sb.medium = 'organic' THEN sb.unique_session_id END) AS homepage_organic_bing_sessions,
+  SUM(CASE WHEN sb.landing_page_title = 'Home - Homepage' AND sb.source = 'bing' AND sb.medium = 'organic' THEN COALESCE(sc.session_purchases, 0) ELSE 0 END) AS homepage_organic_bing_purchases,
+  SUM(CASE WHEN sb.landing_page_title = 'Home - Homepage' AND sb.source = 'bing' AND sb.medium = 'organic' THEN COALESCE(sc.session_revenue, 0) ELSE 0 END) AS homepage_organic_bing_revenue,
 
   -- Yahoo Organic
-  COUNT(DISTINCT CASE WHEN sb.landing_page_title = 'Home - Dipesh Shah Photography' AND sb.source = 'yahoo' AND sb.medium = 'organic' THEN sb.unique_session_id END) AS homepage_organic_yahoo_sessions,
-  SUM(CASE WHEN sb.landing_page_title = 'Home - Dipesh Shah Photography' AND sb.source = 'yahoo' AND sb.medium = 'organic' THEN COALESCE(sc.session_purchases, 0) ELSE 0 END) AS homepage_organic_yahoo_purchases,
-  SUM(CASE WHEN sb.landing_page_title = 'Home - Dipesh Shah Photography' AND sb.source = 'yahoo' AND sb.medium = 'organic' THEN COALESCE(sc.session_revenue, 0) ELSE 0 END) AS homepage_organic_yahoo_revenue,
+  COUNT(DISTINCT CASE WHEN sb.landing_page_title = 'Home - Homepage' AND sb.source = 'yahoo' AND sb.medium = 'organic' THEN sb.unique_session_id END) AS homepage_organic_yahoo_sessions,
+  SUM(CASE WHEN sb.landing_page_title = 'Home - Homepage' AND sb.source = 'yahoo' AND sb.medium = 'organic' THEN COALESCE(sc.session_purchases, 0) ELSE 0 END) AS homepage_organic_yahoo_purchases,
+  SUM(CASE WHEN sb.landing_page_title = 'Home - Homepage' AND sb.source = 'yahoo' AND sb.medium = 'organic' THEN COALESCE(sc.session_revenue, 0) ELSE 0 END) AS homepage_organic_yahoo_revenue,
 
   -- DuckDuckGo Organic
-  COUNT(DISTINCT CASE WHEN sb.landing_page_title = 'Home - Dipesh Shah Photography' AND sb.source = 'duckduckgo' AND sb.medium = 'organic' THEN sb.unique_session_id END) AS homepage_organic_duckduckgo_sessions,
-  SUM(CASE WHEN sb.landing_page_title = 'Home - Dipesh Shah Photography' AND sb.source = 'duckduckgo' AND sb.medium = 'organic' THEN COALESCE(sc.session_purchases, 0) ELSE 0 END) AS homepage_organic_duckduckgo_purchases,
-  SUM(CASE WHEN sb.landing_page_title = 'Home - Dipesh Shah Photography' AND sb.source = 'duckduckgo' AND sb.medium = 'organic' THEN COALESCE(sc.session_revenue, 0) ELSE 0 END) AS homepage_organic_duckduckgo_revenue,
+  COUNT(DISTINCT CASE WHEN sb.landing_page_title = 'Home - Homepage' AND sb.source = 'duckduckgo' AND sb.medium = 'organic' THEN sb.unique_session_id END) AS homepage_organic_duckduckgo_sessions,
+  SUM(CASE WHEN sb.landing_page_title = 'Home - Homepage' AND sb.source = 'duckduckgo' AND sb.medium = 'organic' THEN COALESCE(sc.session_purchases, 0) ELSE 0 END) AS homepage_organic_duckduckgo_purchases,
+  SUM(CASE WHEN sb.landing_page_title = 'Home - Homepage' AND sb.source = 'duckduckgo' AND sb.medium = 'organic' THEN COALESCE(sc.session_revenue, 0) ELSE 0 END) AS homepage_organic_duckduckgo_revenue,
 
   -- AI Search (Perplexity/OpenAI)
-  COUNT(DISTINCT CASE WHEN sb.landing_page_title = 'Home - Dipesh Shah Photography' AND sb.source IN ('perplexity', 'openai') THEN sb.unique_session_id END) AS homepage_organic_ai_sessions,
-  SUM(CASE WHEN sb.landing_page_title = 'Home - Dipesh Shah Photography' AND sb.source IN ('perplexity', 'openai') THEN COALESCE(sc.session_purchases, 0) ELSE 0 END) AS homepage_organic_ai_purchases,
-  SUM(CASE WHEN sb.landing_page_title = 'Home - Dipesh Shah Photography' AND sb.source IN ('perplexity', 'openai') THEN COALESCE(sc.session_revenue, 0) ELSE 0 END) AS homepage_organic_ai_revenue,
+  COUNT(DISTINCT CASE WHEN sb.landing_page_title = 'Home - Homepage' AND sb.source IN ('perplexity', 'openai') THEN sb.unique_session_id END) AS homepage_organic_ai_sessions,
+  SUM(CASE WHEN sb.landing_page_title = 'Home - Homepage' AND sb.source IN ('perplexity', 'openai') THEN COALESCE(sc.session_purchases, 0) ELSE 0 END) AS homepage_organic_ai_purchases,
+  SUM(CASE WHEN sb.landing_page_title = 'Home - Homepage' AND sb.source IN ('perplexity', 'openai') THEN COALESCE(sc.session_revenue, 0) ELSE 0 END) AS homepage_organic_ai_revenue,
 
   -- All Other Long-Tail Organic
-  COUNT(DISTINCT CASE WHEN sb.landing_page_title = 'Home - Dipesh Shah Photography' AND sb.source NOT IN ('google','bing','yahoo','duckduckgo','perplexity','openai') AND sb.medium = 'organic' THEN sb.unique_session_id END) AS homepage_organic_other_sessions,
-  SUM(CASE WHEN sb.landing_page_title = 'Home - Dipesh Shah Photography' AND sb.source NOT IN ('google','bing','yahoo','duckduckgo','perplexity','openai') AND sb.medium = 'organic' THEN COALESCE(sc.session_purchases, 0) ELSE 0 END) AS homepage_organic_other_purchases,
-  SUM(CASE WHEN sb.landing_page_title = 'Home - Dipesh Shah Photography' AND sb.source NOT IN ('google','bing','yahoo','duckduckgo','perplexity','openai') AND sb.medium = 'organic' THEN COALESCE(sc.session_revenue, 0) ELSE 0 END) AS homepage_organic_other_revenue,
+  COUNT(DISTINCT CASE WHEN sb.landing_page_title = 'Home - Homepage' AND sb.source NOT IN ('google','bing','yahoo','duckduckgo','perplexity','openai') AND sb.medium = 'organic' THEN sb.unique_session_id END) AS homepage_organic_other_sessions,
+  SUM(CASE WHEN sb.landing_page_title = 'Home - Homepage' AND sb.source NOT IN ('google','bing','yahoo','duckduckgo','perplexity','openai') AND sb.medium = 'organic' THEN COALESCE(sc.session_purchases, 0) ELSE 0 END) AS homepage_organic_other_purchases,
+  SUM(CASE WHEN sb.landing_page_title = 'Home - Homepage' AND sb.source NOT IN ('google','bing','yahoo','duckduckgo','perplexity','openai') AND sb.medium = 'organic' THEN COALESCE(sc.session_revenue, 0) ELSE 0 END) AS homepage_organic_other_revenue,
 
 
   -------------------------------------------------------------------------
