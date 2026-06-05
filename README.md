@@ -11,7 +11,7 @@ For an e-commerce business mapping out KPI's. developed a KPI tree and drilled i
 
 **SoS** data or **Organic Homepage Sessions** were not being tracked. There was a brand tracker in place.  
 
-For a high AOV e-commerce business: 
+For an e-commerce business: 
 * **The Brand Campaign:** A brand campaign runs in **August-2023**, causing an immediate spike in **Share of Search (SoS)**.
 * **The Lag Affect:** The "big brother" **SoS** peaked immediately, but the "little brother" **Homepage Organic Sessions** remained flat
 * **The Action:** 8 to 10 weeks later in **October-2023**, there was an increase in **Organic homepage sessions** that drove to purchases.
