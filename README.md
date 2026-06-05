@@ -63,7 +63,7 @@ When system friction increases, user behavior shifts away from commercial target
 
 ---
 
-### FRAMEWORK TO IDENTIFYING BRANDS FUNNEL TENSION
+### FRAMEWORK TO IDENTIFYING FUNNEL TENSION
 
 Every business operates under unique technical frameworks, analytics teams must audit their specific ecosystem to identify which pages are pulling users away from the conversion track:
 
