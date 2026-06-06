@@ -18,7 +18,7 @@ For an e-commerce brand mapping performance out on a comprehensive KPI tree and 
 
 ---
 
-### Share of Search vs. Organic Homepage Sessions
+### Share of Search v Organic Homepage Sessions
 
 ### The Strategic Takeaways:
 By establishing continuous tracking for both **SoS** and **Organic Homepage Sessions** side-by-side, growth teams can actively diagnose and forecast:
