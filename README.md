@@ -39,7 +39,7 @@ The key identifer to be able to track **Organic sessions** is the Landing Page T
 
 For example there may be 2 homepages which are being A/B tested - if both homepages **sb.landing_page_title = Homepage** the logic in the code will pick them both. The landing page needs to be as follows: **sb.landing_page_title=Homepage** and **sb.landing_page_title=Home**
 
-To get around handling messy, unpredictable URL extensions and query strings, using **sb.landing_page_title** is the saffest bet. No matter how messy the URL query string gets with ads, campaigns, or tracking UTM's, the title stays exactly the same. It acts as a clean, unified bucket that catches 100% of homepage variations in one line of code.
+To get around handling messy, unpredictable URL extensions and query strings, using **sb.landing_page_title** is the saffest bet. No matter how messy the URL query string gets with ads, campaigns, or tracking UTM's, the title stays exactly the same. It acts as a clean, unified bucket that catches 100% of homepage traffic data in one line of code.
 
 ## STRATEGIC PAGE GROUPING ARCHITECTURE & FUNNEL TENSION
 
