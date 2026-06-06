@@ -41,6 +41,16 @@ Causation is isolated through on-site conversion rate. If market demand (Share o
 | **Multi-Platform (Web + App)** | Verifying web-to-app discovery routing and deep-link health. | Mobile Web Sessions + **App Installs & App Open Rates**. |
 | **CPG / Omni-channel Retail** | Media halo effects, offline retail velocity, and store-locator intent. | Web Sessions to utility pages + **Total Operational/Retail Revenue**. |
 
+### FRAMEWORK TO IDENTIFYING FUNNEL TENSION
+
+Every business operates under unique technical frameworks, analytics teams must audit their specific ecosystem to identify which pages are pulling users away from the conversion track:
+
+* **SaaS/Subscription Models:** Focus heavily on isolating the main authentication gateways (`/login`, `/signin`, `/reset-password`). High search volume targeting these keywords implies app authentication loops or broken session cookies.
+* **E-Commerce/Retail Engines:** Map out customer service escalations (`/contact-us`, `/returns-refunds`, `/shipping-tracking`). If organic entries jump on these pages, users are likely hunting down delayed packages or struggling to update cart parameters.
+* **Lead Generation Platforms:** Monitor structural operational assets (`/help/`, `/faq/`, `/support/`). 
+
+By defining these custom nodes in your SQL case statements, you can clearly track the tension balance in the Data Studio dashboard. If homepage share drops while your custom escalation nodes climb, the data provides an immediate, early warning signal that system friction is actively damaging revenue.
+
 ## IDENTIFYING KEY PAGES AND BUILDING THE LOGIC IN THE CODE
 
 ### The Operational Solution
@@ -69,18 +79,6 @@ When system friction increases, user behavior shifts away from commercial target
 #### 3. The Friction Node: Escalation & Login Hubs (`escalation_total_sessions`)
 * **Strategic Role:** Aggregates entries directly onto account portals, contact forms, help docs, and support centers.
 * **Business Impact:** This represents your **revenue drainage metric**. High traffic share here proves that users are utilizing search engines as a diagnostic tool to fix broken experiences. When this bucket balloons, it introduces negative friction that starves the homepage intent engine and suppresses conversion rates.
-
----
-
-### FRAMEWORK TO IDENTIFYING FUNNEL TENSION
-
-Every business operates under unique technical frameworks, analytics teams must audit their specific ecosystem to identify which pages are pulling users away from the conversion track:
-
-* **SaaS/Subscription Models:** Focus heavily on isolating the main authentication gateways (`/login`, `/signin`, `/reset-password`). High search volume targeting these keywords implies app authentication loops or broken session cookies.
-* **E-Commerce/Retail Engines:** Map out customer service escalations (`/contact-us`, `/returns-refunds`, `/shipping-tracking`). If organic entries jump on these pages, users are likely hunting down delayed packages or struggling to update cart parameters.
-* **Lead Generation Platforms:** Monitor structural operational assets (`/help/`, `/faq/`, `/support/`). 
-
-By defining these custom nodes in your SQL case statements, you can clearly track the tension balance in the Data Studio dashboard. If homepage share drops while your custom escalation nodes climb, the data provides an immediate, early warning signal that system friction is actively damaging revenue.
 
 # CONTEXTUAL NUANCE & CHECKLIST 
 
