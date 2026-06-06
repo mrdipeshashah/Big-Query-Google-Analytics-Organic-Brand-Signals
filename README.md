@@ -22,15 +22,36 @@ For an e-commerce business:
 If both **Sos** and **Organic Homepage Sessions** were being regularly tracked it would be able to pick up on: 
 
 1. The increase in brand searches / brand lift (**Sos**) from August 2023 and the baseline increasing in the following months 
-2. The causation affect on **Organic Homepage Sessions** from October 2023 and the baseline increasing in the following months 
+2. The causation affect on **Organic Homepage Sessions** from October 2023 and the baseline increasing in the following months
 
-### Understanding correlaton v causation 
+## Mini Case Study: The Lagged Demand Effect
+For an e-commerce brand mapping performance out on a comprehensive KPI tree and pairing **Share of Search (SoS)** with **Organic Homepage Sessions**, we isolated the delayed behavioral correlation between market-level demand generation and final web-level traffic crystallization.
 
-### 1. Correlation
-Simultaneous spikes across macro search interest and on-site landing pages without any chronological delay typically suggest seasonal macro-market forces (e.g., Black Friday anomalies or structural industry-wide shifts) rather than standalone channel optimization success.
+<img width="1002" height="490" alt="image" src="https://github.com/user-attachments/assets/244da0c3-d14c-48c7-8252-399babf53e25" />
 
-### 2. Causation
-Causation is isolated through on-site conversion rate. If market demand (Share of Search) stays entirely flat, but your on-site `homepage_organic_revenue_share %` scales, you have proven definitive causation as market demand didn't shift, but your internal traffic quality or conversion design mechanics successfully improved, allowing the "little brother" to convert more efficiently.
+### The Macro Scenario:
+* **The Brand Campaign (Aug 2023):** A top-of-funnel brand campaign launched in August 2023, causing an immediate, sharp spike in market-level **Share of Search (SoS)**.
+* **The Lag Effect:** While the "big brother" metric (SoS) peaked instantly, its "little brother" (Homepage Organic Sessions) remained flat. 
+* **The Delayed Activation (Oct 2023):** Roughly 8 to 10 weeks later, the top-of-funnel demand successfully crystallized. Organic homepage traffic experienced a massive spike, dragging baseline recurring performance to a higher tier across the subsequent months.
+
+---
+
+### Share of Search vs. Organic Homepage Sessions
+
+### The Strategic Takeaways:
+By establishing continuous tracking for both **SoS** and **Organic Homepage Sessions** side-by-side, growth teams can actively diagnose and forecast:
+1. **The Delayed Brand Lift:** Documenting the immediate top-of-funnel market lift (SoS) to protect brand budgets before web traffic reflects the impact.
+2. **The Long-Tail Causation Effect:** Anticipating baseline homepage traffic and downstream organic transaction surges 60–90 days after a major awareness push.
+
+### Understanding Correlation v Causation
+
+#### 1. Correlation
+* **The Dynamic:** Simultaneous spikes across macro search interest (Share of Search) and on-site landing page traffic without any chronological delay.
+* **The Diagnosis:** This typically indicates **correlation** driven by external macro-market forces (e.g., Black Friday anomalies, holiday peaks, or structural industry-wide shifts) rather than standalone optimization breakthroughs. Both metrics are reacting together to a rising tide.
+
+#### 2. Causation
+* **The Dynamic:** Market-wide consumer demand (Share of Search) remains entirely flat, but your on-site `homepage_organic_revenue_share %` scales significantly.
+* **The Diagnosis:** This isolated divergence isolates **causation**. Because external market demand did not shift, the upward trend directly proves that internal traffic quality or on-site conversion design mechanics successfully improved—allowing the homepage to capture and convert existing demand more efficiently.
 
 ## THE BUSINESS MODEL DIAGNOSTIC MATRIX
 
