@@ -95,7 +95,11 @@ The 4 step checklist when evaluating major shifts or spikes in the data view:
 ### 4. The Native Mobile App "Black Hole" Caveat
 * **The Journey Shatter:** For brands with a native iOS/Android app, standard web-to-revenue correlation will naturally skew. 
 * **Deep-Linking Disruption:** High-intent users searching the brand organically on mobile web will frequently be deep-linked directly out of the browser and into the native app ecosystem to complete their purchase. 
-* **The Analytical Guardrail:** A spike in mobile organic homepage traffic accompanied by flat *web* revenue could indicate successful app re/engagement rather than a poor commercial journey. To validate the macro flywheel, desktop organic trends must be used as the stable baseline control group, or app open rates must be overlaid chronologically.
+* **The Analytical Guardrail (Ecosystem Validation):** A spike in mobile organic homepage traffic accompanied by flat *web* revenue must not be interpreted as a poor commercial journey. To validate the macro flywheel, analysts must stop looking at web revenue in isolation. 
+* **The Integration Strategy:** You must bypass web-attribution tracking limits by using the weekly cohort baseline (`week_start_monday`) to blend data silos. Validate the organic traffic spike by checking for a synchronized, chronological lift across:
+  1. **Total Ecosystem Revenue** (pulled directly from your source of truth, e.g., Shopify).
+  2. **Mobile App Installs / App Open Velocity** (pulled from Apple App Store Connect & Google Play Console).
+* **The Bottom Line:** If total Shopify revenue and app metrics climb while web-specific conversions remain flat during a homepage traffic spike, it proves your search visibility is successfully feeding and activating the wider ecosystem.
 
 # DATE SORTING IN DATA STUDIO 
 
