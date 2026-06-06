@@ -32,6 +32,15 @@ Simultaneous spikes across macro search interest and on-site landing pages witho
 ### 2. Causation
 Causation is isolated through on-site conversion rate. If market demand (Share of Search) stays entirely flat, but your on-site `homepage_organic_revenue_share %` scales, you have proven definitive causation as market demand didn't shift, but your internal traffic quality or conversion design mechanics successfully improved, allowing the "little brother" to convert more efficiently.
 
+## THE BUSINESS MODEL DIAGNOSTIC MATRIX
+
+| Business Model | Primary Diagnostic Use Case | Key Validation Metrics |
+| :--- | :--- | :--- |
+| **DTC / Pure E-com (Low AOV)** | Direct performance tracking and frictionless conversion paths. | Web Sessions, Web Revenue, Web Conversion Rate. |
+| **DTC / High AOV (Long Cycle)** | Measuring brand equity, top-of-funnel pull, and research behavior. | Web Sessions + **Total Backend Revenue (Shopify)** lagged chronologically. |
+| **Multi-Platform (Web + App)** | Verifying web-to-app discovery routing and deep-link health. | Mobile Web Sessions + **App Installs & App Open Rates**. |
+| **CPG / Omni-channel Retail** | Media halo effects, offline retail velocity, and store-locator intent. | Web Sessions to utility pages + **Total Operational/Retail Revenue**. |
+
 ## IDENTIFYING KEY PAGES AND BUILDING THE LOGIC IN THE CODE
 
 ### The Operational Solution
