@@ -18,7 +18,7 @@ WITH session_base AS (
     event_timestamp,
     event_params
   FROM
-    `enter.tablename_123456.events_*` -- Replace with your project and dataset ID
+    `mrdipeshashah.analytics_343520795.events_*` -- Replace with your project and dataset ID
   WHERE
     _TABLE_SUFFIX BETWEEN '20240101' AND '20260630' -- Adjust date ranges as needed
 ),
@@ -87,10 +87,14 @@ SELECT
   lp.landing_page_url,
   lp.landing_page_title,
   
-  -- Metrics Aggregations
-  COUNT(DISTINCT lp.session_id) AS sessions,
-  SUM(COALESCE(sc.session_purchases, 0)) AS purchases,
-  ROUND(SUM(COALESCE(sc.session_revenue, 0)), 2) AS revenue
+  -- GA4 Web Specific Metrics Aggregations
+  COUNT(DISTINCT lp.session_id) AS web_sessions,
+  SUM(COALESCE(sc.session_purchases, 0)) AS web_purchases,
+  ROUND(SUM(COALESCE(sc.session_revenue, 0)), 2) AS web_revenue,
+
+  -- Ecosystem Validation Anchors (Null placeholders for easy Looker Studio Data Blending)
+  CAST(NULL AS NUMERIC) AS total_shopify_revenue,
+  CAST(NULL AS INT64) AS mobile_app_installs
 
 FROM
   landing_pages lp
@@ -102,4 +106,4 @@ GROUP BY
   1, 2, 3, 4, 5, 6, 7
 ORDER BY
   week_start_monday DESC,
-  sessions DESC;
+  web_sessions DESC;
