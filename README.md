@@ -77,7 +77,7 @@ By defining these custom nodes in your SQL case statements, you can clearly trac
 
 This dashboard is built for for **Anomaly Detection and Trend Analysis**. The data models are behavioral frameworks rather than absolute physics, these charts must be interpreted alongside broader cross-channel marketing and operational contexts. 
 
-The 3 step checklist when evaluating major shifts or spikes in the data view:
+The 4 step checklist when evaluating major shifts or spikes in the data view:
 
 ### 1. The Cross-Channel Spillover Caveat
 * **Paid Media / Email Alignment:** If aggressive paid media (Google Brand Ads, Meta Ads) or mass email marketing campaigns are directed straight to the homepage, this view loses its isolated "organic purity."
