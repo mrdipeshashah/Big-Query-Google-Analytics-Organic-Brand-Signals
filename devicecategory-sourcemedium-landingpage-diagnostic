@@ -1,21 +1,24 @@
 WITH session_base AS (
   SELECT
-    -- Unique Session ID combo
+    -- Unique Session ID combo (GA4 standard practice)
     CONCAT(user_pseudo_id, '-', (SELECT value.int_value FROM UNNEST(event_params) WHERE key = 'ga_session_id')) AS session_id,
     
     -- Date truncated to the start of the week on Monday
     DATE_TRUNC(EXTRACT(DATE FROM TIMESTAMP_MICROS(event_timestamp)), WEEK(MONDAY)) AS week_start_monday,
     
-    -- Using the dedicated collected_traffic_source record struct
+    -- Raw Traffic Source Fields from the dedicated record struct
     collected_traffic_source.manual_source AS source,
     collected_traffic_source.manual_medium AS medium,
     
-    -- Raw event details needed for sorting/extracting parameters
+    -- Native GA4 device category record struct (mobile, desktop, tablet)
+    device.category AS device_category,
+    
+    -- Raw event details needed for sorting and parameter extraction
     event_name,
     event_timestamp,
     event_params
   FROM
-    `enter.tablename_123456.events_*`-- Replace with your project and dataset ID
+    `enter.tablename_123456.events_*` -- Replace with your project and dataset ID
   WHERE
     _TABLE_SUFFIX BETWEEN '20240101' AND '20260630' -- Adjust date ranges as needed
 ),
@@ -25,11 +28,14 @@ landing_pages AS (
     session_id,
     week_start_monday,
     
-    -- Cleaned traffic source fallback values
+    -- Traffic Source fallbacks for clean sorting
     COALESCE(source, '(direct)') AS source,
     COALESCE(medium, '(none)') AS medium,
     
-    -- Cleaned Landing Page Details (URL and Title)
+    -- Device Category
+    device_category,
+    
+    -- Cleaned Landing Page Details (URL with tracking params stripped, and Title)
     REGEXP_REPLACE(
       (SELECT value.string_value FROM UNNEST(event_params) WHERE key = 'page_location'), 
       r'\?.*$', 
@@ -37,7 +43,7 @@ landing_pages AS (
     ) AS landing_page_url,
     (SELECT value.string_value FROM UNNEST(event_params) WHERE key = 'page_title') AS landing_page_title,
     
-    -- Isolates the very first page_view event of the session to define the landing page
+    -- Isolates the very first page_view event of the session to define the landing page entry point
     ROW_NUMBER() OVER (
       PARTITION BY session_id 
       ORDER BY event_timestamp ASC
@@ -51,10 +57,10 @@ landing_pages AS (
 session_conversions AS (
   SELECT
     session_id,
-    -- Count the purchases in this session
+    -- Count the absolute purchases in this session
     COUNT(IF(event_name = 'purchase', 1, NULL)) AS session_purchases,
     
-    -- Fallback strategy for revenue parameter extraction
+    -- Fallback strategy for revenue parameter extraction to prevent 0.0 values
     SUM(IF(event_name = 'purchase', 
       COALESCE(
         (SELECT value.double_value FROM UNNEST(event_params) WHERE key = 'value'),
@@ -70,10 +76,14 @@ session_conversions AS (
 
 SELECT
   lp.week_start_monday,
+  
+  -- Traffic Dimensions (Separate and Merged)
   lp.source,
   lp.medium,
-  -- Combined column for clean quick-filtering/pivots
   CONCAT(lp.source, ' / ', lp.medium) AS source_medium,
+  
+  -- Platform/Journey Dimensions
+  lp.device_category,
   lp.landing_page_url,
   lp.landing_page_title,
   
@@ -87,9 +97,9 @@ FROM
 LEFT JOIN
   session_conversions sc ON lp.session_id = sc.session_id
 WHERE
-  lp.event_rank = 1 -- Keep only the landing page mapping row
+  lp.event_rank = 1 -- Filters out all non-entry actions to preserve proper session totals
 GROUP BY
-  1, 2, 3, 4, 5, 6
+  1, 2, 3, 4, 5, 6, 7
 ORDER BY
   week_start_monday DESC,
   sessions DESC;
