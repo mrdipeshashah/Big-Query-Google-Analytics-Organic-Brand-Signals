@@ -88,14 +88,14 @@ The 3 step checklist when evaluating major shifts or spikes in the data view:
 * **The Behind-the-Scenes Reality:** This shift can be caused by positive anomalies, such as a viral PR campaign an offline event featuring a misspelled vanity URL, or a massive product drop requiring rapid account creation. 
 * **Rule of Thumb:** The stacked bar chart flags *where* the structural shift happened; human data exploration is required to diagnose *why*.
 
+### 3. The Business Model & Lifecycle Adjuster
+* **Audience Composition Nuance:** The baseline ratio between **Homepage Traffic** and **Tension Pages** is entirely unique to a brand's current lifecycle maturity.
+* **The Scale Shift:** A young, scaling DTC brand should expect an organic footprint heavily dominated by the homepage. A mature subscription brand with a bigger base of subscribers will naturally see a higher, permanent baseline of tension from utility login pages—and that is completely healthy.
+
 ### 4. The Native Mobile App "Black Hole" Caveat
 * **The Journey Shatter:** For brands with a native iOS/Android application, standard web-to-revenue correlation will naturally skew. 
 * **Deep-Linking Disruption:** High-intent users searching the brand organically on mobile web will frequently be deep-linked directly out of the browser and into the native app ecosystem to complete their purchase. 
 * **The Analytical Guardrail:** A spike in mobile organic homepage traffic accompanied by flat *web* revenue often indicates successful app re-engagement rather than a poor commercial journey. To validate the macro flywheel, desktop organic trends must be used as the stable baseline control group, or app open rates must be overlaid chronologically.
-
-### 3. The Business Model & Lifecycle Adjuster
-* **Audience Composition Nuance:** The baseline ratio between **Homepage Traffic** and **Tension Pages** is entirely unique to a brand's current lifecycle maturity.
-* **The Scale Shift:** A young, scaling DTC brand should expect an organic footprint heavily dominated by the homepage. A mature subscription brand with a bigger base of subscribers will naturally see a higher, permanent baseline of tension from utility login pages—and that is completely healthy.
 
 # DATE SORTING IN DATA STUDIO 
 
