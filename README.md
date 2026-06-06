@@ -44,6 +44,22 @@ By establishing continuous tracking for both **SoS** and **Organic Homepage Sess
 | **Multi-Platform (Web + App)** | Verifying web-to-app discovery routing and deep-link health. | Mobile Web Sessions + **App Installs & App Open Rates**. |
 | **CPG / Omni-channel Retail** | Media halo effects, offline retail velocity, and store-locator intent. | Web Sessions to utility pages + **Total Operational/Retail Revenue**. |
 
+## THE CORE ANALYTICAL GUARDRAILS 
+
+### 1. The Mobile App & Omni-channel "Black Hole"
+* **The Nuance:** For brands with a native iOS/Android apps, standard web-to-revenue correlation will naturally skew. High-intent users searching the brand organically on mobile web will frequently be deep-linked directly out of the browser and into the native app ecosystem to complete their purchase. 
+* **The Strategy:** Do not interpret a spike in mobile organic homepage traffic paired with flat *web* revenue as a commercial failure. Use the weekly cohort baseline (`week_start_monday`) to blend data silos. Validate the traffic spike by checking for a synchronized, chronological lift across native **Mobile App Installs / App Open Velocity** alongside total backend revenue.
+
+### 2. High-AOV & Non-Linear Web Journeys (The Delayed Conversion Halo)
+* **The Nuance:** For pure e-commerce brands where transactions happen *entirely* on the website, user journeys are still heavily impacted by product type and consideration windows. High-AOV products inherently trigger non-linear behavior (Search > Home > Abandon > Research > Direct Return Days Later). 
+* **The Strategy:** Treat the homepage as a baseline demand-generation engine. If you observe a massive spike in weekly organic homepage sessions, look past immediate session-level web revenue. Instead, monitor **Total Storewide Revenue** (e.g., pulled directly from Shopify/ERP) over a lagged 2-to-4 week window. Use Desktop Organic traffic trends as your baseline control group to evaluate pure user intent, as desktop users exhibit lower friction and longer session dwell times.
+
+### 3. Framework Scale Variance (The Macro vs. Micro Reality)
+* **The Nuance:** The close alignment of marketing discovery metrics and backend sales depends heavily on business scale. 
+  * **At Lower Volume (~£2M AUM):** Data loops are tight and channel crossover is minimal, meaning homepage organic trends often track tightly and directly with total business revenue.
+  * **At Scale (£10M+ AUM):** The relationship transitions into a macro trend-line compass rather than a literal transactional map. App-deep linking, multi-device paths, and complex attribution leakage will naturally separate immediate session web revenue from total performance.
+* **The Strategy:** Evaluate the relationship holistically as an ecosystem health signal. Continuous, historic visualization of these metrics side-by-side remains essential: sudden, severe structural divergences between traffic share and backend revenue act as an early-warning diagnostic tool for technical tracking failures, indexation bugs, or broken cross-platform customer journeys.
+
 ### FRAMEWORK TO IDENTIFYING FUNNEL TENSION
 
 Every business operates under unique technical frameworks, analytics teams must audit their specific ecosystem to identify which pages are pulling users away from the conversion track:
@@ -82,22 +98,6 @@ When system friction increases, user behavior shifts away from commercial target
 #### 3. The Friction Node: Escalation & Login Hubs (`escalation_total_sessions`)
 * **Strategic Role:** Aggregates entries directly onto account portals, contact forms, help docs, and support centers.
 * **Business Impact:** This represents your **revenue drainage metric**. High traffic share here proves that users are utilizing search engines as a diagnostic tool to fix broken experiences. When this bucket balloons, it introduces negative friction that starves the homepage intent engine and suppresses conversion rates.
-
-## THE CORE ANALYTICAL GUARDRAILS 
-
-### 1. The Mobile App & Omni-channel "Black Hole"
-* **The Nuance:** For brands with a native iOS/Android apps, standard web-to-revenue correlation will naturally skew. High-intent users searching the brand organically on mobile web will frequently be deep-linked directly out of the browser and into the native app ecosystem to complete their purchase. 
-* **The Strategy:** Do not interpret a spike in mobile organic homepage traffic paired with flat *web* revenue as a commercial failure. Use the weekly cohort baseline (`week_start_monday`) to blend data silos. Validate the traffic spike by checking for a synchronized, chronological lift across native **Mobile App Installs / App Open Velocity** alongside total backend revenue.
-
-### 2. High-AOV & Non-Linear Web Journeys (The Delayed Conversion Halo)
-* **The Nuance:** For pure e-commerce brands where transactions happen *entirely* on the website, user journeys are still heavily impacted by product type and consideration windows. High-AOV products inherently trigger non-linear behavior (Search > Home > Abandon > Research > Direct Return Days Later). 
-* **The Strategy:** Treat the homepage as a baseline demand-generation engine. If you observe a massive spike in weekly organic homepage sessions, look past immediate session-level web revenue. Instead, monitor **Total Storewide Revenue** (e.g., pulled directly from Shopify/ERP) over a lagged 2-to-4 week window. Use Desktop Organic traffic trends as your baseline control group to evaluate pure user intent, as desktop users exhibit lower friction and longer session dwell times.
-
-### 3. Framework Scale Variance (The Macro vs. Micro Reality)
-* **The Nuance:** The close alignment of marketing discovery metrics and backend sales depends heavily on business scale. 
-  * **At Lower Volume (~£2M AUM):** Data loops are tight and channel crossover is minimal, meaning homepage organic trends often track tightly and directly with total business revenue.
-  * **At Scale (£10M+ AUM):** The relationship transitions into a macro trend-line compass rather than a literal transactional map. App-deep linking, multi-device paths, and complex attribution leakage will naturally separate immediate session web revenue from total performance.
-* **The Strategy:** Evaluate the relationship holistically as an ecosystem health signal. Continuous, historic visualization of these metrics side-by-side remains essential: sudden, severe structural divergences between traffic share and backend revenue act as an early-warning diagnostic tool for technical tracking failures, indexation bugs, or broken cross-platform customer journeys.
 
 # CONTEXTUAL NUANCE & CHECKLIST 
 
