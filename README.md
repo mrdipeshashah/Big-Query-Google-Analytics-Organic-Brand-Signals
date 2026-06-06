@@ -60,7 +60,7 @@ By establishing continuous tracking for both **SoS** and **Organic Homepage Sess
   * **At Scale (£10M+ AUM):** The relationship transitions into a macro trend-line compass rather than a literal transactional map. App-deep linking, multi-device paths, and complex attribution leakage will naturally separate immediate session web revenue from total performance.
 * **The Strategy:** Evaluate the relationship holistically as an ecosystem health signal. Continuous, historic visualization of these metrics side-by-side remains essential: sudden, severe structural divergences between traffic share and backend revenue act as an early-warning diagnostic tool for technical tracking failures, indexation bugs, or broken cross-platform customer journeys.
 
-### FRAMEWORK TO IDENTIFYING FUNNEL TENSION
+## FRAMEWORK TO IDENTIFYING FUNNEL TENSION
 
 Every business operates under unique technical frameworks, analytics teams must audit their specific ecosystem to identify which pages are pulling users away from the conversion track:
 
