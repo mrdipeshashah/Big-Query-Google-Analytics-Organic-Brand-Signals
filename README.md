@@ -16,8 +16,6 @@ For an e-commerce brand mapping performance out on a comprehensive KPI tree and 
 * **The Lag Effect:** While the "big brother" metric (SoS) peaked instantly, its "little brother" (Homepage Organic Sessions) remained flat. 
 * **The Delayed Activation (Oct 2023):** Roughly 8 to 10 weeks later, the top-of-funnel demand successfully crystallized. Organic homepage traffic experienced a massive spike, dragging baseline recurring performance to a higher tier across the subsequent months.
 
----
-
 ### Share of Search v Organic Homepage Sessions
 
 ### The Strategic Takeaways:
@@ -32,7 +30,7 @@ By establishing continuous tracking for both **SoS** and **Organic Homepage Sess
 * **The Diagnosis:** This typically indicates **correlation** driven by external macro-market forces (e.g., Black Friday anomalies, holiday peaks, or structural industry-wide shifts) rather than standalone optimization breakthroughs. Both metrics are reacting together to a rising tide.
 
 #### 2. Causation
-* **The Dynamic:** Market-wide consumer demand (Share of Search) remains entirely flat, but your on-site `homepage_organic_revenue_share %` scales significantly.
+* **The Dynamic:** Market-wide consumer demand (Share of Search) remains entirely flat, but website `homepage_organic_revenue_share %` scales significantly.
 * **The Diagnosis:** This isolated divergence isolates **causation**. Because external market demand did not shift, the upward trend directly proves that internal traffic quality or on-site conversion design mechanics successfully improved—allowing the homepage to capture and convert existing demand more efficiently.
 
 ## THE BUSINESS MODEL DIAGNOSTIC MATRIX
@@ -41,7 +39,7 @@ By establishing continuous tracking for both **SoS** and **Organic Homepage Sess
 | :--- | :--- | :--- |
 | **DTC / Pure E-com (Low AOV)** | Direct performance tracking and frictionless conversion paths. | Web Sessions, Web Revenue, Web Conversion Rate. |
 | **DTC / High AOV (Long Cycle)** | Measuring brand equity, top-of-funnel pull, and research behavior. | Web Sessions + **Total Backend Revenue (Shopify)** lagged chronologically. |
-| **Multi-Platform (Web + App)** | Verifying web-to-app discovery routing and deep-link health. | Mobile Web Sessions + **App Installs & App Open Rates**. |
+| **DTC Multi-Platform (Web + App)** | Verifying web-to-app discovery routing and deep-link health. | Mobile Web Sessions + **App Installs & App Open Rates**. |
 | **CPG / Omni-channel Retail** | Media halo effects, offline retail velocity, and store-locator intent. | Web Sessions to utility pages + **Total Operational/Retail Revenue**. |
 
 ## THE CORE ANALYTICAL GUARDRAILS 
@@ -52,23 +50,23 @@ By establishing continuous tracking for both **SoS** and **Organic Homepage Sess
 
 ### 2. High-AOV & Non-Linear Web Journeys (The Delayed Conversion Halo)
 * **The Nuance:** For pure e-commerce brands where transactions happen *entirely* on the website, user journeys are still heavily impacted by product type and consideration windows. High-AOV products inherently trigger non-linear behavior (Search > Home > Abandon > Research > Direct Return Days Later). 
-* **The Strategy:** Treat the homepage as a baseline demand-generation engine. If you observe a massive spike in weekly organic homepage sessions, look past immediate session-level web revenue. Instead, monitor **Total Storewide Revenue** (e.g., pulled directly from Shopify/ERP) over a lagged 2-to-4 week window. Use Desktop Organic traffic trends as your baseline control group to evaluate pure user intent, as desktop users exhibit lower friction and longer session dwell times.
+* **The Strategy:** Treat the homepage as a baseline demand-generation engine. If you observe a massive spike in weekly organic homepage sessions, look past immediate session-level web revenue. Instead, monitor **Total Revenue** (i.e., from Shopify) over a lagged 2-to-4 week window. Use Desktop Organic traffic trends as your baseline control group to evaluate pure user intent, as desktop users exhibit lower friction.
 
-### 3. Framework Scale Variance (The Macro vs. Micro Reality)
+### 3. The Scale Variance (The Macro vs. Micro Reality)
 * **The Nuance:** The close alignment of marketing discovery metrics and backend sales depends heavily on business scale. 
-  * **At Lower Volume (~£2M AUM):** Data loops are tight and channel crossover is minimal, meaning homepage organic trends often track tightly and directly with total business revenue.
-  * **At Scale (£10M+ AUM):** The relationship transitions into a macro trend-line compass rather than a literal transactional map. App-deep linking, multi-device paths, and complex attribution leakage will naturally separate immediate session web revenue from total performance.
+  * **At Lower Volume (~£2M):** Data loops are tight and channel crossover is minimal, meaning homepage organic trends often track tightly and directly with total business revenue.
+  * **At Scale (£10M+):** The relationship transitions into a macro trend-line compass rather than a literal transactional map. App-deep linking, multi-device paths, and complex attribution leakage will naturally separate immediate session web revenue from total performance.
 * **The Strategy:** Evaluate the relationship holistically as an ecosystem health signal. Continuous, historic visualization of these metrics side-by-side remains essential: sudden, severe structural divergences between traffic share and backend revenue act as an early-warning diagnostic tool for technical tracking failures, indexation bugs, or broken cross-platform customer journeys.
 
 ## FRAMEWORK TO IDENTIFYING FUNNEL TENSION
 
-Every business operates under unique technical frameworks, analytics teams must audit their specific ecosystem to identify which pages are pulling users away from the conversion track:
+Every business operates under unique technical frameworks, analytics teams must audit specific journeys to identify which pages are pulling users away from the conversion track:
 
 * **SaaS/Subscription Models:** Focus heavily on isolating the main authentication gateways (`/login`, `/signin`, `/reset-password`). High search volume targeting these keywords implies app authentication loops or broken session cookies.
 * **E-Commerce/Retail Engines:** Map out customer service escalations (`/contact-us`, `/returns-refunds`, `/shipping-tracking`). If organic entries jump on these pages, users are likely hunting down delayed packages or struggling to update cart parameters.
 * **Lead Generation Platforms:** Monitor structural operational assets (`/help/`, `/faq/`, `/support/`). 
 
-By defining these custom nodes in your SQL case statements, you can clearly track the tension balance in the Data Studio dashboard. If homepage share drops while your custom escalation nodes climb, the data provides an immediate, early warning signal that system friction is actively damaging revenue.
+By defining these custom nodes in the SQL case statements, it can track the tension balance in the Data Studio dashboard. If homepage share drops while your custom escalation nodes climb, the data provides an immediate, early warning signal that system friction is actively damaging revenue.
 
 ## IDENTIFYING KEY PAGES AND BUILDING THE LOGIC IN THE CODE
 
@@ -125,7 +123,7 @@ The 4 step checklist when evaluating major shifts or spikes in the data view:
 * **The Integration Strategy:** You must bypass web-attribution tracking limits by using the weekly cohort baseline (`week_start_monday`) to blend data silos. Validate the organic traffic spike by checking for a synchronized, chronological lift across:
   1. **Total Ecosystem Revenue** (pulled directly from your source of truth, e.g., Shopify).
   2. **Mobile App Installs / App Open Velocity** (pulled from Apple App Store Connect & Google Play Console).
-* **The Bottom Line:** If total Shopify revenue and app metrics climb while web-specific conversions remain flat during a homepage traffic spike, it proves your search visibility is successfully feeding and activating the wider ecosystem.
+* **The Bottom Line:** If total revenue and app metrics climb while web-specific conversions remain flat during a homepage traffic spike, it proves your search visibility is successfully feeding and activating the wider ecosystem.
 
 # DATE SORTING IN DATA STUDIO 
 
