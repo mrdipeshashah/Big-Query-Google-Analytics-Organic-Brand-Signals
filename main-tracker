@@ -55,7 +55,7 @@ SELECT
   -- HOMEPAGE DETAILED SEGMENTS
   -------------------------------------------------------------------------
   -- Google Organic
-  COUNT(DISTINCT CASE WHEN sb.landing_page_title = 'Home - Dipesh Shah Photography' AND sb.source = 'google' AND sb.medium = 'organic' THEN sb.unique_session_id END) AS homepage_organic_google_sessions,
+  COUNT(DISTINCT CASE WHEN sb.landing_page_title = 'Home - Homepage' AND sb.source = 'google' AND sb.medium = 'organic' THEN sb.unique_session_id END) AS homepage_organic_google_sessions,
   SUM(CASE WHEN sb.landing_page_title = 'Home - Homepage' AND sb.source = 'google' AND sb.medium = 'organic' THEN COALESCE(sc.session_purchases, 0) ELSE 0 END) AS homepage_organic_google_purchases,
   SUM(CASE WHEN sb.landing_page_title = 'Home - Homepage' AND sb.source = 'google' AND sb.medium = 'organic' THEN COALESCE(sc.session_revenue, 0) ELSE 0 END) AS homepage_organic_google_revenue,
 
